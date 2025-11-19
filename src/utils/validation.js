@@ -13,13 +13,14 @@ export const hasValue = (value) => {
   return value !== null && value !== undefined && String(value).trim() !== "";
 };
 
-export const isValidDate = (date) => {
-  return !isNaN(new Date(date).getTime());
+export const isValidDate = (value) => {
+  const d = new Date(value);
+  return d instanceof Date && !isNaN(d);
 };
 
 // ---------------- GRADES VALIDATION ----------------
 
-export const isScoreValid = (score, max) => {
-  if (score === "" || max === "") return false;
-  return Number(score) <= Number(max);
+export const isScoreValid = (score, maxScore) => {
+  if (score === "" || maxScore === "") return false;
+  return Number(score) <= Number(maxScore);
 };

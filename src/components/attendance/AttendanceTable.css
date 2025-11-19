@@ -1,0 +1,50 @@
+.attendance-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attendance-table th,
+.attendance-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+}
+
+.status-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.status-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.present {
+  background: #10b981;
+}
+.present.active {
+  background: #059669;
+}
+
+.absent {
+  background: #ef4444;
+}
+.absent.active {
+  background: #dc2626;
+}
+
+.late {
+  background: #f59e0b;
+}
+.late.active {
+  background: #d97706;
+}
+
+.notes-input {
+  width: 100%;
+}

@@ -1,21 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
-const AttendanceContext = createContext();
 const STORAGE_KEY = "studentflow_attendance";
+const AttendanceContext = createContext();
 
-// Sample Data
 const sampleAttendance = [
   { id: uuid(), studentId: "sample-1", date: "2024-01-10", status: "present", notes: "" },
   { id: uuid(), studentId: "sample-2", date: "2024-01-10", status: "late", notes: "10 mins late" },
   { id: uuid(), studentId: "sample-3", date: "2024-01-10", status: "absent", notes: "Sick" },
   { id: uuid(), studentId: "sample-1", date: "2024-01-11", status: "present", notes: "" },
   { id: uuid(), studentId: "sample-2", date: "2024-01-11", status: "present", notes: "" },
-  { id: uuid(), studentId: "sample-3", date: "2024-01-11", status: "absent", notes: "" },
-  { id: uuid(), studentId: "sample-4", date: "2024-01-12", status: "present", notes: "" },
-  { id: uuid(), studentId: "sample-5", date: "2024-01-12", status: "late", notes: "Bus delay" },
-  { id: uuid(), studentId: "sample-4", date: "2024-01-13", status: "absent", notes: "" },
-  { id: uuid(), studentId: "sample-5", date: "2024-01-13", status: "present", notes: "" }
+  { id: uuid(), studentId: "sample-3", date: "2024-01-11", status: "absent", notes: "" }
 ];
 
 const loadAttendance = () => {
@@ -38,9 +33,12 @@ export const AttendanceProvider = ({ children }) => {
     attendance.filter((rec) => rec.date === date);
 
   const loadAttendanceForStudents = (students, date) => {
-    const existing = attendance.filter((rec) => rec.date === date);
+    const existing = attendance.filter((r) => r.date === date);
+
+    // If already exists — load it
     if (existing.length > 0) return existing;
 
+    // Otherwise create defaults
     return students.map((s) => ({
       id: uuid(),
       studentId: s.id,
@@ -57,8 +55,8 @@ export const AttendanceProvider = ({ children }) => {
   };
 
   const submitAttendance = (records, date) => {
-    const withoutDate = attendance.filter((rec) => rec.date !== date);
-    setAttendance([...withoutDate, ...records]);
+    const others = attendance.filter((r) => r.date !== date);
+    setAttendance([...others, ...records]);
   };
 
   const calculateStats = (records) => {
@@ -80,7 +78,7 @@ export const AttendanceProvider = ({ children }) => {
         loadAttendanceForStudents,
         updateAttendanceRecord,
         submitAttendance,
-        calculateStats
+        calculateStats,
       }}
     >
       {children}

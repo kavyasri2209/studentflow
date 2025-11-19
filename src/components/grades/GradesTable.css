@@ -1,0 +1,32 @@
+.grades-table {
+  margin-top: 20px;
+  padding: 16px;
+}
+
+.grades-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.grades-table th,
+.grades-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  font-size: 14px;
+}
+
+.grades-table th {
+  background: #f8fafc;
+  font-weight: 600;
+}
+
+.grades-table td button {
+  margin-right: 6px;
+}
+
+.muted {
+  padding: 10px;
+  color: #94a3b8;
+}

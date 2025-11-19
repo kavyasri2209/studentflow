@@ -1,0 +1,42 @@
+.grades-page {
+  animation: fadeIn 0.25s ease;
+}
+
+.student-select {
+  margin: 16px 0;
+  max-width: 320px;
+}
+
+.averages {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  margin: 20px 0;
+  align-items: flex-start;
+}
+
+.averages h3 {
+  font-size: 26px;
+  color: #1e293b;
+}
+
+.sub-avg p {
+  font-size: 14px;
+  margin-top: 4px;
+  color: #475569;
+}
+
+.muted {
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+  }
+}

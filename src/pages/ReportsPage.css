@@ -1,0 +1,31 @@
+.reports-page {
+  animation: fadeIn 0.25s ease;
+}
+
+.type-select {
+  max-width: 350px;
+  margin: 16px 0;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.export-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+  }
+}

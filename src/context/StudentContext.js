@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 const STORAGE_KEY = "studentflow_students";
 const StudentContext = createContext();
 
-// ---------- SAMPLE DATA ----------
+// ---------- SAMPLE STUDENTS ----------
 const sampleStudents = [
   {
     id: uuid(),
@@ -93,11 +93,11 @@ const sampleStudents = [
   }
 ];
 
-// Load Storage
+// ---------- LOAD FROM STORAGE ----------
 const loadStudents = () => {
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : sampleStudents;
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : sampleStudents;
   } catch {
     return sampleStudents;
   }
@@ -110,7 +110,9 @@ export const StudentProvider = ({ children }) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
   }, [students]);
 
+  // Add student
   const addStudent = (data) => {
+    // Duplicate Roll Check
     const exists = students.some(
       (s) =>
         s.rollNumber.toLowerCase() === data.rollNumber.toLowerCase() &&
@@ -118,35 +120,39 @@ export const StudentProvider = ({ children }) => {
         s.section === data.section
     );
 
-    if (exists) {
-      throw new Error("Roll number already exists for this class & section.");
-    }
+    if (exists) throw new Error("Roll number already exists in this class.");
 
     const newStudent = { id: uuid(), ...data };
-    setStudents([...students, newStudent]);
+    setStudents((prev) => [...prev, newStudent]);
+
     return newStudent;
   };
 
-  const updateStudent = (id, updatedData) => {
+  // Update student
+  const updateStudent = (id, updated) => {
     setStudents((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, ...updatedData } : s))
+      prev.map((s) => (s.id === id ? { ...s, ...updated } : s))
     );
   };
 
+  // Delete student
   const deleteStudent = (id) => {
     setStudents((prev) => prev.filter((s) => s.id !== id));
   };
 
+  // Get by id
   const getStudentById = (id) => students.find((s) => s.id === id);
 
+  // Search
   const searchStudents = (query) => {
     if (!query.trim()) return students;
+
     query = query.toLowerCase();
 
     return students.filter((s) => {
-      const fullName = `${s.firstName} ${s.lastName}`.toLowerCase();
+      const name = `${s.firstName} ${s.lastName}`.toLowerCase();
       return (
-        fullName.includes(query) ||
+        name.includes(query) ||
         s.email.toLowerCase().includes(query) ||
         s.rollNumber.toLowerCase().includes(query)
       );

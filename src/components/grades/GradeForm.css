@@ -1,0 +1,26 @@
+.grade-form {
+  padding: 20px;
+  margin: 20px 0;
+  max-width: 450px;
+}
+
+.grade-form h3 {
+  margin-bottom: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.error {
+  font-size: 12px;
+  color: #ef4444;
+}
+
+.form-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

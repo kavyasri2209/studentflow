@@ -1,0 +1,24 @@
+.attendance-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.stat h3 {
+  font-size: 22px;
+  margin-bottom: 4px;
+  color: #1e293b;
+}
+
+.stat p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+@media (max-width: 600px) {
+  .attendance-stats {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,24 @@
+.report-preview {
+  padding: 20px;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.report-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.report-preview th,
+.report-preview td {
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.report-preview th {
+  background: #f8fafc;
+  font-weight: 600;
+}

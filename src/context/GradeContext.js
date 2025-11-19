@@ -1,21 +1,19 @@
-import React, { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
-const GradeContext = createContext();
 const STORAGE_KEY = "studentflow_grades";
+const GradeContext = createContext();
 
 const sampleGrades = [
-  // 15 sample grade records (shortened for space)
   { id: uuid(), studentId: "sample-1", subject: "Math", assessmentType: "quiz", score: 8, maxScore: 10, percentage: 80, date: "2024-01-10" },
-  { id: uuid(), studentId: "sample-2", subject: "Science", assessmentType: "test", score: 18, maxScore: 20, percentage: 90, date: "2024-01-11" },
-  { id: uuid(), studentId: "sample-3", subject: "English", assessmentType: "assignment", score: 45, maxScore: 50, percentage: 90, date: "2024-01-12" },
-  // ... remaining records ...
+  { id: uuid(), studentId: "sample-2", subject: "Science", assessmentType: "test", score: 18, maxScore: 20, percentage: 90, date: "2024-01-12" },
+  { id: uuid(), studentId: "sample-3", subject: "English", assessmentType: "assignment", score: 45, maxScore: 50, percentage: 90, date: "2024-01-15" }
 ];
 
 const loadGrades = () => {
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : sampleGrades;
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : sampleGrades;
   } catch {
     return sampleGrades;
   }
@@ -30,7 +28,7 @@ export const GradeProvider = ({ children }) => {
 
   const addGrade = (data) => {
     if (data.score > data.maxScore) {
-      throw new Error("Score cannot exceed maximum score.");
+      throw new Error("Score cannot exceed Max Score.");
     }
 
     const newGrade = {
@@ -50,7 +48,7 @@ export const GradeProvider = ({ children }) => {
           ? {
               ...g,
               ...updated,
-              percentage: Number(((updated.score / updated.maxScore) * 100).toFixed(2))
+              percentage: Number(((updated.score / updated.maxScore) * 100).toFixed(2)),
             }
           : g
       )
@@ -67,6 +65,7 @@ export const GradeProvider = ({ children }) => {
   const getOverallAverage = (studentId) => {
     const list = getGradesForStudent(studentId);
     if (list.length === 0) return 0;
+
     return Number(
       (list.reduce((sum, g) => sum + g.percentage, 0) / list.length).toFixed(2)
     );

@@ -1,0 +1,30 @@
+.attendance-page {
+  animation: fadeIn 0.25s ease;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.actions-row {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.submit-btn {
+  margin-top: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,9 @@
+.unauth {
+  padding: 80px;
+  text-align: center;
+}
+
+.unauth h1 {
+  font-size: 36px;
+  color: #ef4444;
+}

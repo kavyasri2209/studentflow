@@ -1,0 +1,8 @@
+.searchbar {
+  width: 100%;
+  max-width: 350px;
+}
+
+.searchbar input {
+  width: 100%;
+}
