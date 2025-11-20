@@ -1,69 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-// Icons
-import {
-  FaHome,
-  FaUsers,
-  FaClipboardCheck,
-  FaChartBar,
-  FaFileAlt,
-  FaBars
-} from "react-icons/fa";
-
 function Sidebar() {
-  const [open, setOpen] = useState(true);
   const { user } = useAuth();
 
+  if (!user) return null; // hide sidebar when logged out / on landing page
+
   return (
-    <>
-      {/* Mobile Toggle */}
-      <div className="sidebar-toggle" onClick={() => setOpen(!open)}>
-        <FaBars size={20} />
-      </div>
+    <aside className="sidebar">
+      <nav className="menu">
 
-      <aside className={`sidebar ${open ? "open" : "closed"}`}>
-        {user && (
-          <nav className="menu">
+        <NavLink to="/dashboard">Dashboard</NavLink>
 
-            {/* Dashboard ALWAYS visible */}
-            <NavLink className="link" to="/">
-              <FaHome /> <span>Dashboard</span>
-            </NavLink>
-
-            {/* Administrator ONLY */}
-            {user.role === "administrator" && (
-              <NavLink className="link" to="/students">
-                <FaUsers /> <span>Students</span>
-              </NavLink>
-            )}
-
-            {/* Admin + Coordinator + Teacher */}
-            {["administrator", "coordinator", "teacher"].includes(user.role) && (
-              <NavLink className="link" to="/attendance">
-                <FaClipboardCheck /> <span>Attendance</span>
-              </NavLink>
-            )}
-
-            {/* Admin + Teacher */}
-            {["administrator", "teacher"].includes(user.role) && (
-              <NavLink className="link" to="/grades">
-                <FaChartBar /> <span>Grades</span>
-              </NavLink>
-            )}
-
-            {/* Admin + Coordinator */}
-            {["administrator", "coordinator"].includes(user.role) && (
-              <NavLink className="link" to="/reports">
-                <FaFileAlt /> <span>Reports</span>
-              </NavLink>
-            )}
-          </nav>
+        {user.role === "administrator" && (
+          <NavLink to="/students">Students</NavLink>
         )}
-      </aside>
-    </>
+
+        {["administrator", "coordinator", "teacher"].includes(user.role) && (
+          <NavLink to="/attendance">Attendance</NavLink>
+        )}
+
+        {["administrator", "teacher"].includes(user.role) && (
+          <NavLink to="/grades">Grades</NavLink>
+        )}
+
+        {["administrator", "coordinator"].includes(user.role) && (
+          <NavLink to="/reports">Reports</NavLink>
+        )}
+
+      </nav>
+    </aside>
   );
 }
 

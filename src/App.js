@@ -1,11 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
-import { AuthProvider } from "./context/AuthContext";
-import ProtectedRoute from "./components/common/ProtectedRoute";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
+import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
-import Unauthorized from "./pages/Unauthorized";
 
 import Dashboard from "./pages/Dashboard";
 import StudentsPage from "./pages/StudentsPage";
@@ -13,71 +12,95 @@ import AttendancePage from "./pages/AttendancePage";
 import GradesPage from "./pages/GradesPage";
 import ReportsPage from "./pages/ReportsPage";
 
+import ProtectedRoute from "./components/common/ProtectedRoute";
+
 import Header from "./components/layout/Header";
 import Sidebar from "./components/layout/Sidebar";
 import Footer from "./components/layout/Footer";
 
-import "./App.css";
+function LayoutWrapper({ children }) {
+  const location = useLocation();
+  const { user } = useAuth();
+
+  // hide header & sidebar on landing and login pages
+  const hideLayout =
+    location.pathname === "/" || location.pathname === "/login";
+
+  return (
+    <>
+      {!hideLayout && user && <Header />}
+      {!hideLayout && user && <Sidebar />}
+
+      <main
+        className={`main-content ${
+          hideLayout ? "no-layout" : "with-layout"
+        }`}
+      >
+        {children}
+      </main>
+
+      {!hideLayout && user && <Footer />}
+    </>
+  );
+}
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <Header />
-        <Sidebar />
+    <AuthProvider>
+      <LayoutWrapper>
+        <Routes>
+          {/* PUBLIC ROUTES */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
 
-        <main className="main-content">
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/unauthorized" element={<Unauthorized />} />
+          {/* PROTECTED ROUTES */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute allowed={["administrator", "coordinator", "teacher"]}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
-            {/* MAIN MODULE PERMISSIONS */}
-            <Route
-              path="/students"
-              element={
-                <ProtectedRoute allowed={["administrator"]}>
-                  <StudentsPage />
-                </ProtectedRoute>
-              }
-            />
+          <Route
+            path="/students"
+            element={
+              <ProtectedRoute allowed={["administrator"]}>
+                <StudentsPage />
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/attendance"
-              element={
-                <ProtectedRoute
-                  allowed={["administrator", "coordinator", "teacher"]}
-                >
-                  <AttendancePage />
-                </ProtectedRoute>
-              }
-            />
+          <Route
+            path="/attendance"
+            element={
+              <ProtectedRoute allowed={["administrator", "coordinator", "teacher"]}>
+                <AttendancePage />
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/grades"
-              element={
-                <ProtectedRoute allowed={["administrator", "teacher"]}>
-                  <GradesPage />
-                </ProtectedRoute>
-              }
-            />
+          <Route
+            path="/grades"
+            element={
+              <ProtectedRoute allowed={["administrator", "teacher"]}>
+                <GradesPage />
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/reports"
-              element={
-                <ProtectedRoute allowed={["administrator", "coordinator"]}>
-                  <ReportsPage />
-                </ProtectedRoute>
-              }
-            />
-
-            {/* Default route */}
-            <Route path="/" element={<Dashboard />} />
-          </Routes>
-        </main>
-
-        <Footer />
-      </AuthProvider>
-    </Router>
+          <Route
+            path="/reports"
+            element={
+              <ProtectedRoute allowed={["administrator", "coordinator"]}>
+                <ReportsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </LayoutWrapper>
+    </AuthProvider>
   );
 }
 

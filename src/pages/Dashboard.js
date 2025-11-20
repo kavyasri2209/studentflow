@@ -4,6 +4,7 @@ import "./Dashboard.css";
 import { useStudents } from "../context/StudentContext";
 import { useAttendance } from "../context/AttendanceContext";
 import { useGrades } from "../context/GradeContext";
+import { useAuth } from "../context/AuthContext";
 
 import { getTodayDate } from "../utils/dateUtils";
 
@@ -13,12 +14,15 @@ import {
   FaChartLine,
   FaUserCheck,
   FaPlusCircle,
-  FaFile 
+  FaFile
 } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 
 function Dashboard() {
+  const { user } = useAuth();
+  const role = user?.role;
+
   const { students } = useStudents();
   const { attendance, getAttendanceByDate } = useAttendance();
   const { grades } = useGrades();
@@ -49,7 +53,6 @@ function Dashboard() {
     return (total / grades.length).toFixed(2);
   }, [grades]);
 
-  // Recent Activities
   const recent = [...attendance]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
@@ -58,32 +61,43 @@ function Dashboard() {
     <div className="dashboard">
       <h2>Dashboard</h2>
 
-      {/* 4 Stat Cards */}
+      {/* Stats Grid */}
       <div className="stats-grid">
-        <div className="stat-card">
-          <FaUsers className="stat-icon blue" />
-          <div className="stat-info">
-            <h3>{students.length}</h3>
-            <p>Total Students</p>
-          </div>
-        </div>
 
-        <div className="stat-card">
-          <FaClipboardCheck className="stat-icon green" />
-          <div className="stat-info">
-            <h3>{averageAttendance}%</h3>
-            <p>Average Attendance</p>
+        {/* ADMIN only */}
+        {role === "administrator" && (
+          <div className="stat-card">
+            <FaUsers className="stat-icon blue" />
+            <div className="stat-info">
+              <h3>{students.length}</h3>
+              <p>Total Students</p>
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="stat-card">
-          <FaChartLine className="stat-icon orange" />
-          <div className="stat-info">
-            <h3>{averageGrade}%</h3>
-            <p>Average Grade</p>
+        {/* ADMIN + COORDINATOR only */}
+        {(role === "administrator" || role === "coordinator") && (
+          <div className="stat-card">
+            <FaClipboardCheck className="stat-icon green" />
+            <div className="stat-info">
+              <h3>{averageAttendance}%</h3>
+              <p>Average Attendance</p>
+            </div>
           </div>
-        </div>
+        )}
 
+        {/* ADMIN + TEACHER only */}
+        {(role === "administrator" || role === "teacher") && (
+          <div className="stat-card">
+            <FaChartLine className="stat-icon orange" />
+            <div className="stat-info">
+              <h3>{averageGrade}%</h3>
+              <p>Average Grade</p>
+            </div>
+          </div>
+        )}
+
+        {/* All roles */}
         <div className="stat-card">
           <FaUserCheck className="stat-icon purple" />
           <div className="stat-info">
@@ -91,26 +105,40 @@ function Dashboard() {
             <p>Today's Present</p>
           </div>
         </div>
+
       </div>
 
       {/* Quick Actions */}
       <h3 className="section-title">Quick Actions</h3>
-      <div className="quick-actions">
-        <Link to="/students" className="quick-btn">
-          <FaPlusCircle /> Add Student
-        </Link>
 
+      <div className="quick-actions">
+
+        {/* ADMIN only */}
+        {role === "administrator" && (
+          <Link to="/students" className="quick-btn">
+            <FaPlusCircle /> Add Student
+          </Link>
+        )}
+
+        {/* ALL ROLES */}
         <Link to="/attendance" className="quick-btn">
           <FaClipboardCheck /> Mark Attendance
         </Link>
 
-        <Link to="/grades" className="quick-btn">
-          <FaChartLine /> Add Grades
-        </Link>
+        {/* ADMIN + TEACHER */}
+        {(role === "administrator" || role === "teacher") && (
+          <Link to="/grades" className="quick-btn">
+            <FaChartLine /> Add Grades
+          </Link>
+        )}
 
-        <Link to="/reports" className="quick-btn">
-          <FaFile /> Generate Reports
-        </Link>
+        {/* ADMIN + COORDINATOR */}
+        {(role === "administrator" || role === "coordinator") && (
+          <Link to="/reports" className="quick-btn">
+            <FaFile /> Generate Reports
+          </Link>
+        )}
+
       </div>
 
       {/* Recent Activity */}

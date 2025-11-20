@@ -11,9 +11,9 @@ export const AuthProvider = ({ children }) => {
     if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
-  const login = (username, role) => {
+  // FIXED: Accept the object form { username, role }
+  const login = ({ username, role }) => {
     const data = { username, role };
-
     localStorage.setItem("studentflow_user", JSON.stringify(data));
     setUser(data);
   };
