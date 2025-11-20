@@ -1,31 +1,6 @@
-.reports-page {
-  animation: fadeIn 0.25s ease;
-}
-
-.type-select {
-  max-width: 350px;
-  margin: 16px 0;
-}
-
-.filters {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.export-btns {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-  }
-}
+.reports-page { animation: fadeIn 0.25s ease; padding-bottom:40px; }
+.type-select { max-width: 420px; margin: 12px 0; }
+.filters { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
+.export-btns { display:flex; gap:12px; margin-top:12px; }
+.reports-card { background: var(--card-bg); border:1px solid var(--glass-border); padding:16px; border-radius:12px; box-shadow:0 10px 30px rgba(2,6,23,0.45); }
+.reports-preview { margin-top:18px; }

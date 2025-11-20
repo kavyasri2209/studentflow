@@ -1,42 +1,7 @@
-.grades-page {
-  animation: fadeIn 0.25s ease;
-}
-
-.student-select {
-  margin: 16px 0;
-  max-width: 320px;
-}
-
-.averages {
-  display: flex;
-  gap: 30px;
-  padding: 20px;
-  margin: 20px 0;
-  align-items: flex-start;
-}
-
-.averages h3 {
-  font-size: 26px;
-  color: #1e293b;
-}
-
-.sub-avg p {
-  font-size: 14px;
-  margin-top: 4px;
-  color: #475569;
-}
-
-.muted {
-  font-size: 14px;
-  color: #94a3b8;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-  }
-}
+.grades-page { animation: fadeIn 0.25s ease; padding: 8px 0; }
+.student-select { margin: 12px 0; max-width: 340px; }
+.averages { display:flex; gap:18px; padding:14px; margin: 16px 0; align-items:flex-start; }
+.averages .card { padding:12px 14px; border-radius:12px; background:var(--card-bg); border:1px solid var(--glass-border); box-shadow:0 10px 30px rgba(2,6,23,0.45); }
+.averages h3 { font-size:20px; color:var(--text-light); margin:0; }
+.sub-avg p { font-size:14px; color:var(--muted); margin:6px 0 0; }
+.muted { font-size:14px; color:var(--muted); padding:8px 0; }
