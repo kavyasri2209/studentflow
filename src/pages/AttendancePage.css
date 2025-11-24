@@ -1,37 +1,254 @@
-/* Attendance page — StudentFlow themed */
-:root{ --primary:#2563eb; --secondary:#10b981; --muted:#94a3b8; --card-bg: rgba(255,255,255,0.02); --glass-border: rgba(255,255,255,0.04); }
+/* ==========================================
+   ATTENDANCE PAGE - BOOTSTRAP RESPONSIVE
+========================================== */
 
-/* container */
-.attendance-page { padding: 20px; animation: fadeIn 0.22s ease; }
+.attendance-page {
+  animation: fadeIn 0.3s ease;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
-/* stats */
-.attendance-stats { display:flex; gap:12px; margin-bottom:18px; flex-wrap:wrap; }
-.attendance-stats .stat { background: var(--card-bg); border:1px solid var(--glass-border); padding:12px 16px; border-radius:12px; min-width:140px; box-shadow:0 8px 28px rgba(3,7,18,0.35); }
-.stat h3 { font-size:18px; color:var(--text-light); margin:0; } .stat p{ margin:0; color:var(--muted); }
+.attendance-page h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+}
 
-/* table */
-.attendance-table { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border-radius:12px; overflow:hidden; border:1px solid var(--glass-border); box-shadow: 0 12px 40px rgba(2,6,23,0.55); }
-.attendance-table table { width:100%; border-collapse:collapse; }
-.attendance-table thead { background: linear-gradient(90deg, rgba(37,99,235,0.06), rgba(16,185,129,0.04)); }
-.attendance-table th, .attendance-table td { padding:14px 12px; font-size:14px; color:var(--muted); border-bottom:1px solid rgba(255,255,255,0.03); vertical-align:middle; }
-.attendance-table tbody tr:hover { background: rgba(255,255,255,0.02); }
-.attendance-table .student-name { display:flex; align-items:center; gap:10px; color:var(--text-light); font-weight:600; }
-.attendance-table .avatar { width:36px; height:36px; border-radius:50%; background:linear-gradient(90deg,var(--primary),var(--secondary)); display:inline-flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:13px; box-shadow: 0 8px 18px rgba(37,99,235,0.12); }
+/* ========== FILTERS CARD ========== */
+.filters.card {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
 
-.status-buttons { display:flex; gap:8px; align-items:center; }
-.status-btn { padding:8px 10px; border-radius:8px; cursor:pointer; border:none; color:white; font-weight:700; font-size:13px; transition:transform .12s ease; opacity:0.95; box-shadow:0 6px 18px rgba(2,6,23,0.5); }
-.present { background: linear-gradient(90deg, #10b981, #059669); } .present.active { transform:translateY(-3px); box-shadow:0 12px 28px rgba(5,150,105,0.18); }
-.absent { background: linear-gradient(90deg, #ef4444, #dc2626); } .absent.active { transform:translateY(-3px); box-shadow:0 12px 28px rgba(239,68,68,0.18); }
-.late { background: linear-gradient(90deg,#f59e0b,#d97706); color:#0b0b0b; } .late.active { transform:translateY(-3px); box-shadow:0 12px 28px rgba(249,115,22,0.15); }
+.filter-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
 
-.notes-input { width:100%; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:rgba(255,255,255,0.02); color:var(--muted); outline:none; }
-.notes-input:focus { border-color:var(--primary); box-shadow: 0 8px 20px rgba(37,99,235,0.08); color:var(--text-light); }
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
-.attendance-controls { display:flex; gap:12px; margin:12px 0 18px 0; align-items:center; }
-.mark-all-btn { padding:10px 14px; border-radius:10px; background:var(--card-bg); border:1px solid rgba(255,255,255,0.03); color:var(--text-light); cursor:pointer; font-weight:700; }
-.mark-all-btn:hover { transform:translateY(-2px); box-shadow: 0 10px 30px rgba(3,7,18,0.35); }
+.form-group label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-dark);
+  margin: 0;
+}
 
-@media (max-width: 980px) {
-  .attendance-table th, .attendance-table td { padding:12px 8px; font-size:13px; }
-  .attendance-stats { flex-direction:column; gap:10px; align-items:stretch; }
+.form-control,
+.form-select {
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  font-size: 0.938rem;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.1);
+}
+
+/* ========== ACTIONS ROW ========== */
+.actions-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.actions-row .btn {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.actions-row .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border: none;
+  color: white;
+}
+
+/* ========== SUBMIT SECTION ========== */
+.submit-section {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.submit-section .btn {
+  min-width: 250px;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 800;
+  border-radius: 0.875rem;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+  transition: all 0.3s ease;
+}
+
+.submit-section .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.empty-state p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* Tablets */
+@media (max-width: 991px) {
+  .filter-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .actions-row {
+    flex-direction: column;
+  }
+
+  .actions-row .btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .attendance-page {
+    padding: 0;
+  }
+
+  .attendance-page h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .filters.card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .filter-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .actions-row {
+    gap: 0.5rem;
+  }
+
+  .actions-row .btn {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  .submit-section .btn {
+    width: 100%;
+    min-width: auto;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+
+  .empty-state h3 {
+    font-size: 1.25rem;
+  }
+
+  .empty-state p {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .filters.card {
+    padding: 0.875rem;
+    border-radius: 0.75rem;
+  }
+
+  .form-control,
+  .form-select {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .actions-row .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.813rem;
+  }
+
+  .submit-section .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.938rem;
+  }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== PRINT ========== */
+@media print {
+  .filters.card,
+  .actions-row,
+  .submit-section {
+    display: none !important;
+  }
 }

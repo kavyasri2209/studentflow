@@ -14,7 +14,8 @@ import {
   FaChartLine,
   FaUserCheck,
   FaPlusCircle,
-  FaFile
+  FaFile,
+  FaLock
 } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
@@ -28,27 +29,17 @@ function Dashboard() {
   const { grades } = useGrades();
 
   const today = getTodayDate();
-
-  // Today Attendance Records
   const todayAttendance = getAttendanceByDate(today);
-
-  const todayPresent = todayAttendance.filter(
-    (r) => r.status === "present"
-  ).length;
+  const todayPresent = todayAttendance.filter((r) => r.status === "present").length;
 
   const averageAttendance = useMemo(() => {
     if (attendance.length === 0) return 0;
-
-    const presentCount = attendance.filter(
-      (r) => r.status === "present"
-    ).length;
-
+    const presentCount = attendance.filter((r) => r.status === "present").length;
     return ((presentCount / attendance.length) * 100).toFixed(2);
   }, [attendance]);
 
   const averageGrade = useMemo(() => {
     if (grades.length === 0) return 0;
-
     const total = grades.reduce((sum, g) => sum + g.percentage, 0);
     return (total / grades.length).toFixed(2);
   }, [grades]);
@@ -57,91 +48,269 @@ function Dashboard() {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
 
+  // Role-based welcome message
+  const getWelcomeMessage = () => {
+    switch(role) {
+      case "administrator":
+        return "Administrator Dashboard - Full System Access";
+      case "coordinator":
+        return "Academic Coordinator Dashboard - Monitoring & Reports";
+      case "teacher":
+        return "Teacher Dashboard - Attendance & Grades";
+      default:
+        return "Welcome to StudentFlow";
+    }
+  };
+
   return (
     <div className="dashboard">
-      <h2>Dashboard</h2>
+      <div className="dashboard-header">
+        <div>
+          <h2>Welcome, {user?.username}! 👋</h2>
+          <p className="role-badge-large">{getWelcomeMessage()}</p>
+        </div>
+      </div>
 
-      {/* Stats Grid */}
+      {/* ========== STATS GRID ========== */}
       <div className="stats-grid">
 
-        {/* ADMIN only */}
+        {/* ADMINISTRATOR - All Stats */}
         {role === "administrator" && (
-          <div className="stat-card">
-            <FaUsers className="stat-icon blue" />
-            <div className="stat-info">
-              <h3>{students.length}</h3>
-              <p>Total Students</p>
+          <>
+            <div className="stat-card">
+              <FaUsers className="stat-icon blue" />
+              <div className="stat-info">
+                <h3>{students.length}</h3>
+                <p>Total Students</p>
+              </div>
             </div>
-          </div>
+
+            <div className="stat-card">
+              <FaClipboardCheck className="stat-icon green" />
+              <div className="stat-info">
+                <h3>{averageAttendance}%</h3>
+                <p>Average Attendance</p>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <FaChartLine className="stat-icon orange" />
+              <div className="stat-info">
+                <h3>{averageGrade}%</h3>
+                <p>Average Grade</p>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <FaUserCheck className="stat-icon purple" />
+              <div className="stat-info">
+                <h3>{todayPresent}</h3>
+                <p>Today's Present</p>
+              </div>
+            </div>
+          </>
         )}
 
-        {/* ADMIN + COORDINATOR only */}
-        {(role === "administrator" || role === "coordinator") && (
-          <div className="stat-card">
-            <FaClipboardCheck className="stat-icon green" />
-            <div className="stat-info">
-              <h3>{averageAttendance}%</h3>
-              <p>Average Attendance</p>
+        {/* COORDINATOR - Attendance focused stats */}
+        {role === "coordinator" && (
+          <>
+            <div className="stat-card">
+              <FaClipboardCheck className="stat-icon green" />
+              <div className="stat-info">
+                <h3>{averageAttendance}%</h3>
+                <p>Average Attendance</p>
+              </div>
             </div>
-          </div>
+
+            <div className="stat-card">
+              <FaUserCheck className="stat-icon purple" />
+              <div className="stat-info">
+                <h3>{todayPresent}</h3>
+                <p>Today's Present</p>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <FaUsers className="stat-icon blue" />
+              <div className="stat-info">
+                <h3>{todayAttendance.length}</h3>
+                <p>Students Tracked Today</p>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <FaFile className="stat-icon orange" />
+              <div className="stat-info">
+                <h3>{attendance.length}</h3>
+                <p>Total Records</p>
+              </div>
+            </div>
+          </>
         )}
 
-        {/* ADMIN + TEACHER only */}
-        {(role === "administrator" || role === "teacher") && (
-          <div className="stat-card">
-            <FaChartLine className="stat-icon orange" />
-            <div className="stat-info">
-              <h3>{averageGrade}%</h3>
-              <p>Average Grade</p>
+        {/* TEACHER - Class focused stats */}
+        {role === "teacher" && (
+          <>
+            <div className="stat-card">
+              <FaUserCheck className="stat-icon purple" />
+              <div className="stat-info">
+                <h3>{todayPresent}</h3>
+                <p>Today's Present</p>
+              </div>
             </div>
-          </div>
-        )}
 
-        {/* All roles */}
-        <div className="stat-card">
-          <FaUserCheck className="stat-icon purple" />
-          <div className="stat-info">
-            <h3>{todayPresent}</h3>
-            <p>Today's Present</p>
-          </div>
-        </div>
+            <div className="stat-card">
+              <FaClipboardCheck className="stat-icon green" />
+              <div className="stat-info">
+                <h3>{todayAttendance.length}</h3>
+                <p>Students Today</p>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <FaChartLine className="stat-icon orange" />
+              <div className="stat-info">
+                <h3>{grades.length}</h3>
+                <p>Grades Entered</p>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <FaFile className="stat-icon blue" />
+              <div className="stat-info">
+                <h3>{averageGrade}%</h3>
+                <p>Class Average</p>
+              </div>
+            </div>
+          </>
+        )}
 
       </div>
 
-      {/* Quick Actions */}
+      {/* ========== QUICK ACTIONS ========== */}
       <h3 className="section-title">Quick Actions</h3>
 
       <div className="quick-actions">
 
-        {/* ADMIN only */}
+        {/* ADMINISTRATOR - Full Access */}
         {role === "administrator" && (
-          <Link to="/students" className="quick-btn">
-            <FaPlusCircle /> Add Student
-          </Link>
+          <>
+            <Link to="/students" className="quick-btn btn-blue">
+              <FaPlusCircle /> Manage Students
+            </Link>
+            <Link to="/attendance" className="quick-btn btn-green">
+              <FaClipboardCheck /> Mark Attendance
+            </Link>
+            <Link to="/grades" className="quick-btn btn-orange">
+              <FaChartLine /> Manage Grades
+            </Link>
+            <Link to="/reports" className="quick-btn btn-purple">
+              <FaFile /> Generate Reports
+            </Link>
+          </>
         )}
 
-        {/* ALL ROLES */}
-        <Link to="/attendance" className="quick-btn">
-          <FaClipboardCheck /> Mark Attendance
-        </Link>
-
-        {/* ADMIN + TEACHER */}
-        {(role === "administrator" || role === "teacher") && (
-          <Link to="/grades" className="quick-btn">
-            <FaChartLine /> Add Grades
-          </Link>
+        {/* COORDINATOR - Attendance & Reports */}
+        {role === "coordinator" && (
+          <>
+            <Link to="/attendance" className="quick-btn btn-green">
+              <FaClipboardCheck /> View Attendance
+            </Link>
+            <Link to="/reports" className="quick-btn btn-purple">
+              <FaFile /> Generate Reports
+            </Link>
+            <div className="quick-btn btn-disabled">
+              <FaLock /> Students (Admin Only)
+            </div>
+            <div className="quick-btn btn-disabled">
+              <FaLock /> Grades (Teachers Only)
+            </div>
+          </>
         )}
 
-        {/* ADMIN + COORDINATOR */}
-        {(role === "administrator" || role === "coordinator") && (
-          <Link to="/reports" className="quick-btn">
-            <FaFile /> Generate Reports
-          </Link>
+        {/* TEACHER - Attendance & Grades */}
+        {role === "teacher" && (
+          <>
+            <Link to="/attendance" className="quick-btn btn-green">
+              <FaClipboardCheck /> Mark Attendance
+            </Link>
+            <Link to="/grades" className="quick-btn btn-orange">
+              <FaChartLine /> Enter Grades
+            </Link>
+            <div className="quick-btn btn-disabled">
+              <FaLock /> Students (Admin Only)
+            </div>
+            <div className="quick-btn btn-disabled">
+              <FaLock /> Reports (Coordinator Access)
+            </div>
+          </>
         )}
 
       </div>
 
-      {/* Recent Activity */}
+      {/* ========== ROLE-BASED INFORMATION PANELS ========== */}
+      
+      {/* ADMINISTRATOR - System Overview */}
+      {role === "administrator" && (
+        <div className="info-panel admin-panel">
+          <h3 className="section-title">System Overview</h3>
+          <div className="info-grid">
+            <div className="info-card">
+              <h4>Your Permissions</h4>
+              <ul>
+                <li>✅ Add, Edit, Delete Students</li>
+                <li>✅ Manage All Attendance Records</li>
+                <li>✅ View All Grade Reports</li>
+                <li>✅ Generate All Reports</li>
+                <li>✅ Export Data (CSV/JSON)</li>
+                <li>✅ Full System Access</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* COORDINATOR - Monitoring Focus */}
+      {role === "coordinator" && (
+        <div className="info-panel coordinator-panel">
+          <h3 className="section-title">Your Access</h3>
+          <div className="info-grid">
+            <div className="info-card">
+              <h4>What You Can Do</h4>
+              <ul>
+                <li>✅ View All Students (Read-Only)</li>
+                <li>✅ Monitor Attendance Records</li>
+                <li>✅ Generate Reports</li>
+                <li>✅ Export Attendance Data</li>
+                <li>❌ Cannot Add/Edit Students</li>
+                <li>❌ Cannot Manage Grades</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TEACHER - Teaching Focus */}
+      {role === "teacher" && (
+        <div className="info-panel teacher-panel">
+          <h3 className="section-title">Your Access</h3>
+          <div className="info-grid">
+            <div className="info-card">
+              <h4>What You Can Do</h4>
+              <ul>
+                <li>✅ View Students (Read-Only)</li>
+                <li>✅ Mark Daily Attendance</li>
+                <li>✅ Enter & Edit Grades</li>
+                <li>✅ View Grade Analytics</li>
+                <li>❌ Cannot Add/Delete Students</li>
+                <li>❌ Cannot Generate Reports</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========== RECENT ACTIVITY ========== */}
       <h3 className="section-title">Recent Activities</h3>
 
       <div className="card recent-list">
@@ -151,13 +320,17 @@ function Dashboard() {
           recent.map((r) => (
             <div key={r.id} className="recent-item">
               <div>
-                <strong>{r.status.toUpperCase()}</strong> — {r.date}
+                <strong className={`status-${r.status}`}>
+                  {r.status.toUpperCase()}
+                </strong>
+                <span className="date-badge">{r.date}</span>
               </div>
-              <span className="muted">ID: {r.studentId}</span>
+              <span className="muted">Student ID: {r.studentId}</span>
             </div>
           ))
         )}
       </div>
+
     </div>
   );
 }

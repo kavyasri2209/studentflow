@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 // CONTEXTS - Import all providers
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -21,14 +21,18 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import Header from "./components/layout/Header";
 import Sidebar from "./components/layout/Sidebar";
 import Footer from "./components/layout/Footer";
+import Toast from "./components/common/Toast";
 
-// Layout Wrapper - Must be inside AuthProvider
+// STYLES
+import "./App.css";
+
+// Layout Wrapper
 function LayoutWrapper({ children }) {
   const location = useLocation();
   const { user } = useAuth();
 
-  const hideLayout =
-    location.pathname === "/" || location.pathname === "/login";
+  // Hide layout on public pages
+  const hideLayout = location.pathname === "/" || location.pathname === "/login";
 
   return (
     <div className="app-container">
@@ -40,6 +44,7 @@ function LayoutWrapper({ children }) {
         </main>
       </div>
       {!hideLayout && user && <Footer />}
+      <Toast />
     </div>
   );
 }
@@ -49,11 +54,13 @@ function AppContent() {
   return (
     <LayoutWrapper>
       <Routes>
-        {/* PUBLIC */}
+        {/* ========== PUBLIC ROUTES ========== */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
 
-        {/* PROTECTED */}
+        {/* ========== PROTECTED ROUTES ========== */}
+        
+        {/* DASHBOARD - All roles can access */}
         <Route
           path="/dashboard"
           element={
@@ -62,6 +69,8 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        {/* STUDENTS PAGE - Only Administrator (full CRUD) */}
         <Route
           path="/students"
           element={
@@ -70,6 +79,11 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        {/* ATTENDANCE PAGE - Administrator, Coordinator, Teacher */}
+        {/* Administrator: Full access */}
+        {/* Coordinator: View and mark attendance */}
+        {/* Teacher: Mark attendance for their classes only */}
         <Route
           path="/attendance"
           element={
@@ -78,6 +92,10 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        {/* GRADES PAGE - Administrator and Teacher */}
+        {/* Administrator: Full access to all grades */}
+        {/* Teacher: Add/Edit grades for their subjects */}
         <Route
           path="/grades"
           element={
@@ -86,6 +104,10 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        {/* REPORTS PAGE - Administrator and Coordinator */}
+        {/* Administrator: Generate all reports */}
+        {/* Coordinator: View reports only */}
         <Route
           path="/reports"
           element={
@@ -94,12 +116,15 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        {/* Catch all - redirect to dashboard if logged in, otherwise to landing */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </LayoutWrapper>
   );
 }
 
-// MAIN APP - All providers wrap the content
+// MAIN APP
 function App() {
   return (
     <AuthProvider>
