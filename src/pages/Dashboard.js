@@ -1,4 +1,3 @@
-// ...existing code...
 import React, { useMemo } from "react";
 import "./Dashboard.css";
 
@@ -22,22 +21,12 @@ import {
 import { Link } from "react-router-dom";
 
 function Dashboard() {
-  // protect against missing providers by giving safe defaults
-  const authCtx = useAuth?.() || {};
-  const user = authCtx.user || null;
+  const { user } = useAuth();
   const role = user?.role;
 
-  const studentsCtx = useStudents?.() || {};
-  const students = Array.isArray(studentsCtx.students) ? studentsCtx.students : [];
-
-  const attendanceCtx = useAttendance?.() || {};
-  const attendance = Array.isArray(attendanceCtx.attendance) ? attendanceCtx.attendance : [];
-  const getAttendanceByDate = typeof attendanceCtx.getAttendanceByDate === "function"
-    ? attendanceCtx.getAttendanceByDate
-    : null;
-
-  const gradesCtx = useGrades?.() || {};
-  const grades = Array.isArray(gradesCtx.grades) ? gradesCtx.grades : [];
+  const { students } = useStudents();
+  const { attendance, getAttendanceByDate } = useAttendance();
+  const { grades } = useGrades();
 
   const today = getTodayDate();
   const todayAttendance = getAttendanceByDate(today);
@@ -256,6 +245,7 @@ function Dashboard() {
             </div>
           </>
         )}
+
       </div>
 
       {/* ========== ROLE-BASED INFORMATION PANELS ========== */}
@@ -328,7 +318,7 @@ function Dashboard() {
           <p className="muted">No recent activity.</p>
         ) : (
           recent.map((r) => (
-            <div key={r.id ?? Math.random()} className="recent-item">
+            <div key={r.id} className="recent-item">
               <div>
                 <strong className={`status-${r.status}`}>
                   {r.status.toUpperCase()}

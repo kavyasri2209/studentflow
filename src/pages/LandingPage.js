@@ -1,78 +1,121 @@
-// ...existing code...
 import React from "react";
+import { Link, Navigate } from "react-router-dom";
+import {
+  FiMenu,
+  FiLogIn,
+  FiUsers,
+  FiBookOpen,
+  FiBarChart2,
+  FiBell,
+} from "react-icons/fi";
 import "./LandingPage.css";
+import { useAuth } from "../context/AuthContext";
 
-import heroImg from "../assets/hero.png";
-import feature1 from "../assets/feature1.png";
-import feature2 from "../assets/feature2.png";
-import feature3 from "../assets/feature3.png";
-import feature4 from "../assets/feature4.png";
-import feature5 from "../assets/feature5.png";
-import feature6 from "../assets/feature6.png";
-import benefitsImg from "../assets/benefits.png";
+// Replace with your actual images
+import heroImg from "../Images/s1.jpg";
+import heroCardImg from "../Images/s2.jpg";
+import workflowImg from "../Images/s3.jpg";
 
 export default function LandingPage() {
+  const [open, setOpen] = React.useState(false);
+  const { user } = useAuth();
+
+  // 🚀 If user is already logged in → skip landing page
+  if (user) return <Navigate to="/dashboard" replace />;
+
   return (
-    <div className="landing-wrapper">
+    <div className="sf-lp">
+
+      {/* NAVBAR */}
+      <header className="sf-nav">
+        <div className="sf-nav-inner">
+          <div className="sf-brand">StudentFlow</div>
+
+          <nav className={`sf-links ${open ? "open" : ""}`}>
+            <a href="#features">Features</a>
+            <a href="#how">How It Works</a>
+            <a href="#roles">Roles</a>
+            <a href="#faq">FAQ</a>
+          </nav>
+
+          <div className="sf-actions">
+
+            {/* Only LOGIN button */}
+            <Link to="/login" className="btn primary">
+              <FiLogIn /> Login
+            </Link>
+
+            <button
+              className="sf-burger"
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              <FiMenu />
+            </button>
+          </div>
+        </div>
+      </header>
+
       {/* HERO SECTION */}
-      <section className="hero">
-        <div className="hero-text">
-          <h1>
-            EXPERIENCE ULTIMATE <br />
-            <span className="highlight">STUDENT MANAGEMENT</span><br /> with SWEEDU!
-          </h1>
+      <section className="sf-hero">
+        <div className="sf-hero-inner">
 
-          <p>
-            Revolutionize student and data management for schools, parents and
-            students with our smart learning solution.
-          </p>
+          <div className="hero-left">
+            <span className="badge">Smart Management for Modern Schools</span>
 
-          <button className="btn-primary">Start Free Trial</button>
-        </div>
+            <h1>
+              Manage Students, Attendance & Reports <br />
+              <span className="muted">All in one clean dashboard.</span>
+            </h1>
 
-        <div className="hero-image">
-          <img src={heroImg} alt="Student Management Banner" />
-        </div>
-      </section>
+            <p className="lead">
+              StudentFlow helps schools stay organized with effortless student
+              management, attendance tracking, grade handling, and instant reporting.
+              All data stored safely in your browser via LocalStorage.
+            </p>
 
-      {/* INTRO SECTION */}
-      <section className="intro">
-        <h2>Student Management System</h2>
-        <p>
-          Students are the main stakeholders of any educational institution.
-          With the advancing technology, schools now use modern student
-          management systems through school management ERP software.
-        </p>
+            <div className="hero-cta">
+              <Link to="/login" className="btn cta">
+                Start Now
+              </Link>
+            </div>
 
-        <p>
-          A student management system manages student-related data, processes,
-          and functions at school. SWEEDU’s Student Database Module ensures all
-          necessary information is accessible when needed.
-        </p>
-      </section>
+            {/* HERO STATS */}
+            <div className="hero-stats">
+              <div className="stat">
+                <div className="num">150+</div>
+                <div className="label">Institutions</div>
+              </div>
 
-      {/* DIFFERENCE TABLE */}
-      <section className="difference">
-        <h2>Difference Between School Management Software & Student Management System</h2>
+              <div className="stat">
+                <div className="num">1M+</div>
+                <div className="label">Records Tracked</div>
+              </div>
 
-        <div className="table">
-          <div className="table-column">
-            <h3>School Management Software</h3>
-            <ul>
-              <li>Manages all processes related to school.</li>
-              <li>Useful for students, parents, admin & staff.</li>
-              <li>Complete ERP software by itself.</li>
-            </ul>
+              <div className="stat">
+                <div className="num">99.9%</div>
+                <div className="label">Uptime</div>
+              </div>
+
+              <div className="stat">
+                <div className="num">4.9★</div>
+                <div className="label">User Rating</div>
+              </div>
+            </div>
           </div>
 
-          <div className="table-column">
-            <h3>Student Management System</h3>
-            <ul>
-              <li>Manages only student-related data.</li>
-              <li>Useful for students, parents & staff.</li>
-              <li>Standalone or part of bigger ERP.</li>
-            </ul>
+          {/* RIGHT SIDE */}
+          <div className="hero-right">
+            <div className="hero-card">
+              <img src={heroImg} alt="Dashboard preview" />
+              <div className="hero-card-badge">Attendance Overview</div>
+              <div className="hero-card-notice">New Notice Published</div>
+            </div>
+
+            <div className="hero-small-card">
+              <img src={heroCardImg} alt="Preview small" />
+            </div>
           </div>
+
         </div>
       </section>
 
@@ -92,22 +135,23 @@ export default function LandingPage() {
               <p>Add, organize, and manage student data easily.</p>
             </div>
 
-          <div className="feature-card">
-            <img src={feature2} alt="Video Tutorials" />
-            <h4>Video Tutorials</h4>
-            <p>Complete learning management system for students.</p>
-          </div>
+            <div className="feature-card">
+              <FiBarChart2 className="f-ico" />
+              <h3>Attendance</h3>
+              <p>Mark daily attendance & generate reports.</p>
+            </div>
 
-          <div className="feature-card">
-            <img src={feature3} alt="Online Exam" />
-            <h4>Online Exam</h4>
-            <p>Robust online examination system for students.</p>
-          </div>
+            <div className="feature-card">
+              <FiBookOpen className="f-ico" />
+              <h3>Grades</h3>
+              <p>Track academic performance instantly.</p>
+            </div>
 
-          <div className="feature-card">
-            <img src={feature4} alt="Attendance" />
-            <h4>Attendance</h4>
-            <p>Manage school attendance digitally and easily.</p>
+            <div className="feature-card">
+              <FiBell className="f-ico" />
+              <h3>Notices</h3>
+              <p>Announcements & exam alerts at a glance.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -157,31 +201,25 @@ export default function LandingPage() {
               </ul>
             </div>
 
-          <div className="benefit-card">
-            <h3>Benefits for Parents</h3>
-            <ul>
-              <li>Quick online admissions</li>
-              <li>Pay school fees online</li>
-              <li>Track child progress & attendance</li>
-            </ul>
-          </div>
+            <div className="role-card">
+              <img src={workflowImg} alt="" />
+              <h4>Coordinators</h4>
+              <ul>
+                <li>Monitor Sections</li>
+                <li>Track Attendance</li>
+                <li>Manage Notices</li>
+              </ul>
+            </div>
 
-          <div className="benefit-card">
-            <h3>Benefits for Teachers</h3>
-            <ul>
-              <li>Easy access to student info</li>
-              <li>Update attendance & marks</li>
-              <li>Real-time communication</li>
-            </ul>
-          </div>
-
-          <div className="benefit-card">
-            <h3>Benefits for Administrators</h3>
-            <ul>
-              <li>Centralized student database</li>
-              <li>Role-based access</li>
-              <li>Cloud-secured data backup</li>
-            </ul>
+            <div className="role-card">
+              <img src={workflowImg} alt="" />
+              <h4>Teachers</h4>
+              <ul>
+                <li>Mark Attendance</li>
+                <li>Enter Grades</li>
+                <li>Review Performance</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -252,4 +290,3 @@ export default function LandingPage() {
     </div>
   );
 }
-// ...existing code...

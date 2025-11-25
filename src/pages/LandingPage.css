@@ -38,11 +38,9 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* HERO */
-.hero {
+.sf-nav-inner {
   display: flex;
   justify-content: space-between;
-  padding: 80px 6%;
   align-items: center;
 }
 
@@ -56,43 +54,77 @@
   color: transparent;
 }
 
-.hero-text {
-  flex: 1;
-  min-width: 350px;
+.sf-links {
+  display: flex;
+  gap: 28px;
 }
 
-.hero-text h1 {
-  font-size: 3rem;
-  font-weight: 700;
+.sf-links a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 15px;
+  opacity: 0.85;
 }
 
-.hero-text .highlight {
-  color: #007bff;
+.sf-links a:hover {
+  opacity: 1;
 }
 
-.hero-text p {
-  font-size: 1.2rem;
-  margin-top: 15px;
+/* NAV BUTTONS */
+.sf-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.btn-primary {
-  margin-top: 20px;
-  padding: 12px 28px;
-  background: #007bff;
-  color: white;
-  border-radius: 8px;
-  border: none;
+.btn {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
   cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
 }
 
-.hero-image {
-  flex: 1;
-  text-align: center;
-  min-width: 350px;
+.btn.ghost {
+  background: var(--glass-light);
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
 }
 
-.hero-image img {
-  width: 90%;
+.btn.ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.btn.primary {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.18);
+}
+
+.sf-burger {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-light);
+  display: none;
+}
+
+/* HERO SECTION */
+.sf-hero {
+  padding-top: 120px;
+  padding-bottom: 60px;
+}
+
+.sf-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 40px;
+  width: min(1200px, 92%);
+  margin: 0 auto;
 }
 
 .badge {
@@ -131,9 +163,11 @@
   font-weight: 700;
 }
 
-.table {
+/* HERO STATS */
+.hero-stats {
   display: flex;
-  gap: 30px;
+  gap: 18px;
+  margin-top: 20px;
   flex-wrap: wrap;
 }
 
@@ -231,11 +265,28 @@
   padding: 70px 0;
 }
 
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
+.container {
+  width: min(1200px, 92%);
+  margin: 0 auto;
+}
+
+.sf-section h2 {
+  font-size: 32px;
+  text-align: center;
+}
+
+.sf-section .sub {
+  text-align: center;
+  margin-top: 6px;
+  color: var(--text-muted);
+}
+
+/* Feature cards */
+.features-grid {
   margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 .feature-card {
@@ -258,10 +309,8 @@
   margin-bottom: 10px;
 }
 
-
-/* BENEFITS */
-.benefits {
-  padding: 60px 6%;
+/* WORKFLOW */
+.workflow .center-title {
   text-align: center;
 }
 .main-steps-grid {
@@ -273,8 +322,8 @@
 .steps-grid {
  
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
 }
 
 .step-card {
@@ -296,20 +345,25 @@
   width: 100%;
   height: 120px;
   border-radius: 10px;
-  background: #fff3e0;
-  text-align: left;
+  object-fit: cover;
 }
 
-
-/* BLOGS */
-.blog {
-  padding: 60px 6%;
+.step-no {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
 }
 
-.blog-grid {
+/* ROLES */
+.roles-grid {
+  margin-top: 28px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
 .role-card {
@@ -365,6 +419,11 @@
   font-size: 15px;
 }
 
+.test-card .author {
+  margin-top: 10px;
+  color: var(--primary);
+  font-weight: 600;
+}
 
 /* FAQ */
 .faq-grid {
@@ -407,47 +466,53 @@ details summary {
   cursor: pointer;
 }
 
-
 /* FOOTER */
-.footer {
+.sf-footer {
+  margin-top: 60px;
+  padding: 30px 0;
   text-align: center;
-  background: #1f1f1f;
-  color: white;
-  padding: 50px 6% 20px;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
 }
-
-.footer-bottom {
-  margin-top: 20px;
-  opacity: 0.6;
-  font-size: 0.9rem;
-}
-
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-  .hero {
-    text-align: center;
+@media (max-width: 1100px) {
+  .sf-hero-inner {
+    grid-template-columns: 1fr;
   }
 
-  .hero-text h1 {
-    font-size: 2.2rem;
-  }
-
-  .hero-image img {
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  .benefits-img {
-    width: 90%;
+  .roles-grid,
+  .features-grid,
+  .steps-grid,
+  .test-grid,
+  .faq-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
-@media (max-width: 480px) {
-  .hero-text h1 {
-    font-size: 1.8rem;
+
+@media (max-width: 720px) {
+  .sf-links {
+    display: none;
   }
 
-  .btn-primary {
-    padding: 10px 20px;
+  .sf-burger {
+    display: block;
+  }
+
+  .sf-hero-inner {
+    grid-template-columns: 1fr;
+    padding: 0 14px;
+  }
+
+  .features-grid,
+  .roles-grid,
+  .steps-grid,
+  .test-grid,
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card {
+    height: 220px;
   }
 }
