@@ -126,6 +126,7 @@ export default function LandingPage() {
           <p className="sub">
             Manage academics efficiently with StudentFlow.
           </p>
+          <p>Everything your school needs is now in one powerful platform. StudentFlow helps you manage academics efficiently with smart tools designed for schools of all sizes. From attendance and assessments to timetables and progress tracking, every task becomes easier and more organized. Teachers can work more productively, students stay informed, and administrators gain complete visibility over academic operations. With StudentFlow, your school experiences smoother workflows, reduced manual effort, and improved overall performance.</p>
 
           <div className="features-grid">
             <div className="feature-card">
@@ -159,7 +160,8 @@ export default function LandingPage() {
       <section id="how" className="sf-section workflow">
         <div className="container">
           <h2 className="center-title">How StudentFlow Works</h2>
-
+          <p>StudentFlow is designed to simplify student management from start to finish. First, you create your account and set up your basic details. Then, you can easily add students along with their profiles and academic information. Once everything is set up, StudentFlow allows you to track daily attendance, monitor grades, and maintain student records effortlessly. With all data stored in one place, you can instantly generate detailed reports for performance, attendance trends, and class insights. StudentFlow makes student management faster, smarter, and more organized.</p>
+          <div className="main-steps-grid">
           <div className="steps-grid">
             {[1, 2, 3, 4].map((num) => (
               <div className="step-card" key={num}>
@@ -179,6 +181,7 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+          </div>
         </div>
       </section>
 
@@ -186,7 +189,7 @@ export default function LandingPage() {
       <section id="roles" className="sf-section roles">
         <div className="container">
           <h2 className="center-title">Built for Every Role</h2>
-
+          <p>Built for Every Role, StudentFlow adapts to the needs of administrators, teachers, and coordinators alike. Whether you’re managing student records, tracking attendance, or analyzing performance, the platform provides the right tools for every user. Each role gets a streamlined experience designed to save time, improve accuracy, and keep everyone connected.</p>
           <div className="roles-grid">
             <div className="role-card">
               <img src={workflowImg} alt="" />
@@ -225,7 +228,7 @@ export default function LandingPage() {
       <section className="sf-section testimonials">
         <div className="container">
           <h2 className="center-title">Loved By Schools</h2>
-
+          <p>Loved by schools of all sizes, StudentFlow has become a trusted solution for simplifying academic and administrative tasks. Schools appreciate how easy it is to manage students, track attendance, and access reports—all from one clean dashboard. With reliable performance, intuitive design, and time-saving automation, StudentFlow helps educators focus more on teaching and less on paperwork. That’s why schools choose it, use it, and truly love it.</p>
           <div className="test-grid">
             <div className="test-card">
               <q>StudentFlow made data handling so smooth!</q>
@@ -244,8 +247,8 @@ export default function LandingPage() {
       <section id="faq" className="sf-section faq">
         <div className="container">
           <h2 className="center-title">FAQ</h2>
-
           <div className="faq-grid">
+          <div className="faq-questions">
             <details>
               <summary>Is StudentFlow free?</summary>
               <p>Yes — the base version is fully free.</p>
@@ -265,16 +268,24 @@ export default function LandingPage() {
               <summary>Do we need a backend?</summary>
               <p>No. Everything runs on LocalStorage.</p>
             </details>
+             <details>
+              <summary>Is StudentFlow free?</summary>
+              <p>Yes — the base version is fully free.</p>
+            </details>
+             <details>
+              <summary>Is StudentFlow free?</summary>
+              <p>Yes — the base version is fully free.</p>
+            </details>
+          </div>
+          <div className="faq-grid">
+            <img src="https://e1.pxfuel.com/desktop-wallpaper/401/742/desktop-wallpaper-ielts-student-female-students.jpg" alt="FAQ" className="faq-img"/>
+            <img src="https://st2.depositphotos.com/3889193/6856/i/450/depositphotos_68564281-stock-photo-beautiful-student-girl-posing-with.jpg" alt="FAQ" className="faq-img"/>
+            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3R1ZGVudHxlbnwwfHwwfHx8MA%3D%3D" alt="FAQ" className="faq-img"/>
+            <img src="https://media.istockphoto.com/id/1419416580/photo/positive-confident-indian-or-arabian-male-student-of-university-in-stylish-casual-wear-with.jpg?s=612x612&w=0&k=20&c=SU0hixbCg6ChDJH9jPBwVgHDRt2vJR3OSJx0Bt5AWCE=" alt="FAQ" className="faq-img"/>
+          </div>
           </div>
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="sf-footer">
-        <div className="container">
-          <p>© {new Date().getFullYear()} StudentFlow — Smart Management for Schools</p>
-        </div>
-      </footer>
 
     </div>
   );
