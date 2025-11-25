@@ -1,3 +1,4 @@
+// ...existing code...
 import React, { useMemo } from "react";
 import "./Dashboard.css";
 
@@ -20,42 +21,59 @@ import {
 import { Link } from "react-router-dom";
 
 function Dashboard() {
-  const { user } = useAuth();
+  // protect against missing providers by giving safe defaults
+  const authCtx = useAuth?.() || {};
+  const user = authCtx.user || null;
   const role = user?.role;
 
-  const { students } = useStudents();
-  const { attendance, getAttendanceByDate } = useAttendance();
-  const { grades } = useGrades();
+  const studentsCtx = useStudents?.() || {};
+  const students = Array.isArray(studentsCtx.students) ? studentsCtx.students : [];
+
+  const attendanceCtx = useAttendance?.() || {};
+  const attendance = Array.isArray(attendanceCtx.attendance) ? attendanceCtx.attendance : [];
+  const getAttendanceByDate = typeof attendanceCtx.getAttendanceByDate === "function"
+    ? attendanceCtx.getAttendanceByDate
+    : null;
+
+  const gradesCtx = useGrades?.() || {};
+  const grades = Array.isArray(gradesCtx.grades) ? gradesCtx.grades : [];
 
   const today = getTodayDate();
 
-  // Today Attendance Records
-  const todayAttendance = getAttendanceByDate(today);
+  // Today Attendance Records (fallback if provider doesn't supply helper)
+  const todayAttendance = getAttendanceByDate
+    ? (getAttendanceByDate(today) || [])
+    : attendance.filter((r) => {
+        // handle different date formats safely
+        if (!r || !r.date) return false;
+        try {
+          return new Date(r.date).toDateString() === new Date(today).toDateString();
+        } catch {
+          return r.date === today;
+        }
+      });
 
-  const todayPresent = todayAttendance.filter(
-    (r) => r.status === "present"
-  ).length;
+  const todayPresent = todayAttendance.filter((r) => r?.status === "present").length;
 
   const averageAttendance = useMemo(() => {
-    if (attendance.length === 0) return 0;
-
-    const presentCount = attendance.filter(
-      (r) => r.status === "present"
-    ).length;
-
-    return ((presentCount / attendance.length) * 100).toFixed(2);
+    if (!attendance || attendance.length === 0) return "0.00";
+    const presentCount = attendance.filter((r) => r?.status === "present").length;
+    const pct = (presentCount / attendance.length) * 100;
+    if (!isFinite(pct)) return "0.00";
+    return pct.toFixed(2);
   }, [attendance]);
 
   const averageGrade = useMemo(() => {
-    if (grades.length === 0) return 0;
-
-    const total = grades.reduce((sum, g) => sum + g.percentage, 0);
-    return (total / grades.length).toFixed(2);
+    if (!grades || grades.length === 0) return "0.00";
+    const total = grades.reduce((sum, g) => sum + (Number(g?.percentage) || 0), 0);
+    const avg = total / grades.length;
+    if (!isFinite(avg)) return "0.00";
+    return avg.toFixed(2);
   }, [grades]);
 
-  const recent = [...attendance]
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 5);
+  const recent = Array.isArray(attendance)
+    ? [...attendance].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5)
+    : [];
 
   return (
     <div className="dashboard">
@@ -63,8 +81,6 @@ function Dashboard() {
 
       {/* Stats Grid */}
       <div className="stats-grid">
-
-        {/* ADMIN only */}
         {role === "administrator" && (
           <div className="stat-card">
             <FaUsers className="stat-icon blue" />
@@ -75,7 +91,6 @@ function Dashboard() {
           </div>
         )}
 
-        {/* ADMIN + COORDINATOR only */}
         {(role === "administrator" || role === "coordinator") && (
           <div className="stat-card">
             <FaClipboardCheck className="stat-icon green" />
@@ -86,7 +101,6 @@ function Dashboard() {
           </div>
         )}
 
-        {/* ADMIN + TEACHER only */}
         {(role === "administrator" || role === "teacher") && (
           <div className="stat-card">
             <FaChartLine className="stat-icon orange" />
@@ -97,7 +111,6 @@ function Dashboard() {
           </div>
         )}
 
-        {/* All roles */}
         <div className="stat-card">
           <FaUserCheck className="stat-icon purple" />
           <div className="stat-info">
@@ -105,43 +118,34 @@ function Dashboard() {
             <p>Today's Present</p>
           </div>
         </div>
-
       </div>
 
-      {/* Quick Actions */}
       <h3 className="section-title">Quick Actions</h3>
 
       <div className="quick-actions">
-
-        {/* ADMIN only */}
         {role === "administrator" && (
           <Link to="/students" className="quick-btn">
             <FaPlusCircle /> Add Student
           </Link>
         )}
 
-        {/* ALL ROLES */}
         <Link to="/attendance" className="quick-btn">
           <FaClipboardCheck /> Mark Attendance
         </Link>
 
-        {/* ADMIN + TEACHER */}
         {(role === "administrator" || role === "teacher") && (
           <Link to="/grades" className="quick-btn">
             <FaChartLine /> Add Grades
           </Link>
         )}
 
-        {/* ADMIN + COORDINATOR */}
         {(role === "administrator" || role === "coordinator") && (
           <Link to="/reports" className="quick-btn">
             <FaFile /> Generate Reports
           </Link>
         )}
-
       </div>
 
-      {/* Recent Activity */}
       <h3 className="section-title">Recent Activities</h3>
 
       <div className="card recent-list">
@@ -149,11 +153,11 @@ function Dashboard() {
           <p className="muted">No recent activity.</p>
         ) : (
           recent.map((r) => (
-            <div key={r.id} className="recent-item">
+            <div key={r.id ?? Math.random()} className="recent-item">
               <div>
-                <strong>{r.status.toUpperCase()}</strong> — {r.date}
+                <strong>{String(r?.status ?? "").toUpperCase()}</strong> — {r?.date}
               </div>
-              <span className="muted">ID: {r.studentId}</span>
+              <span className="muted">ID: {r?.studentId}</span>
             </div>
           ))
         )}
@@ -163,3 +167,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+// ...existing code...

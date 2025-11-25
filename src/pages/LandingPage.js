@@ -1,281 +1,218 @@
+// ...existing code...
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
-import {
-  FiMenu,
-  FiLogIn,
-  FiUsers,
-  FiBookOpen,
-  FiBarChart2,
-  FiBell,
-} from "react-icons/fi";
 import "./LandingPage.css";
-import { useAuth } from "../context/AuthContext";
 
-// Replace with your actual images
-import heroImg from "../Images/s1.jpg";
-import heroCardImg from "../Images/s2.jpg";
-import workflowImg from "../Images/s3.jpg";
+import heroImg from "../assets/hero.png";
+import feature1 from "../assets/feature1.png";
+import feature2 from "../assets/feature2.png";
+import feature3 from "../assets/feature3.png";
+import feature4 from "../assets/feature4.png";
+import feature5 from "../assets/feature5.png";
+import feature6 from "../assets/feature6.png";
+import benefitsImg from "../assets/benefits.png";
 
 export default function LandingPage() {
-  const [open, setOpen] = React.useState(false);
-  const { user } = useAuth();
-
-  // 🚀 If user is already logged in → skip landing page
-  if (user) return <Navigate to="/dashboard" replace />;
-
   return (
-    <div className="sf-lp">
-
-      {/* NAVBAR */}
-      <header className="sf-nav">
-        <div className="sf-nav-inner">
-          <div className="sf-brand">StudentFlow</div>
-
-          <nav className={`sf-links ${open ? "open" : ""}`}>
-            <a href="#features">Features</a>
-            <a href="#how">How It Works</a>
-            <a href="#roles">Roles</a>
-            <a href="#faq">FAQ</a>
-          </nav>
-
-          <div className="sf-actions">
-
-            {/* Only LOGIN button */}
-            <Link to="/login" className="btn primary">
-              <FiLogIn /> Login
-            </Link>
-
-            <button
-              className="sf-burger"
-              onClick={() => setOpen((prev) => !prev)}
-            >
-              <FiMenu />
-            </button>
-          </div>
-        </div>
-      </header>
-
+    <div className="landing-wrapper">
       {/* HERO SECTION */}
-      <section className="sf-hero">
-        <div className="sf-hero-inner">
+      <section className="hero">
+        <div className="hero-text">
+          <h1>
+            EXPERIENCE ULTIMATE <br />
+            <span className="highlight">STUDENT MANAGEMENT</span><br /> with SWEEDU!
+          </h1>
 
-          <div className="hero-left">
-            <span className="badge">Smart Management for Modern Schools</span>
+          <p>
+            Revolutionize student and data management for schools, parents and
+            students with our smart learning solution.
+          </p>
 
-            <h1>
-              Manage Students, Attendance & Reports <br />
-              <span className="muted">All in one clean dashboard.</span>
-            </h1>
+          <button className="btn-primary">Start Free Trial</button>
+        </div>
 
-            <p className="lead">
-              StudentFlow helps schools stay organized with effortless student
-              management, attendance tracking, grade handling, and instant reporting.
-              All data stored safely in your browser via LocalStorage.
-            </p>
+        <div className="hero-image">
+          <img src={heroImg} alt="Student Management Banner" />
+        </div>
+      </section>
 
-            <div className="hero-cta">
-              <Link to="/login" className="btn cta">
-                Start Now
-              </Link>
-            </div>
+      {/* INTRO SECTION */}
+      <section className="intro">
+        <h2>Student Management System</h2>
+        <p>
+          Students are the main stakeholders of any educational institution.
+          With the advancing technology, schools now use modern student
+          management systems through school management ERP software.
+        </p>
 
-            {/* HERO STATS */}
-            <div className="hero-stats">
-              <div className="stat">
-                <div className="num">150+</div>
-                <div className="label">Institutions</div>
-              </div>
+        <p>
+          A student management system manages student-related data, processes,
+          and functions at school. SWEEDU’s Student Database Module ensures all
+          necessary information is accessible when needed.
+        </p>
+      </section>
 
-              <div className="stat">
-                <div className="num">1M+</div>
-                <div className="label">Records Tracked</div>
-              </div>
+      {/* DIFFERENCE TABLE */}
+      <section className="difference">
+        <h2>Difference Between School Management Software & Student Management System</h2>
 
-              <div className="stat">
-                <div className="num">99.9%</div>
-                <div className="label">Uptime</div>
-              </div>
-
-              <div className="stat">
-                <div className="num">4.9★</div>
-                <div className="label">User Rating</div>
-              </div>
-            </div>
+        <div className="table">
+          <div className="table-column">
+            <h3>School Management Software</h3>
+            <ul>
+              <li>Manages all processes related to school.</li>
+              <li>Useful for students, parents, admin & staff.</li>
+              <li>Complete ERP software by itself.</li>
+            </ul>
           </div>
 
-          {/* RIGHT SIDE */}
-          <div className="hero-right">
-            <div className="hero-card">
-              <img src={heroImg} alt="Dashboard preview" />
-              <div className="hero-card-badge">Attendance Overview</div>
-              <div className="hero-card-notice">New Notice Published</div>
-            </div>
-
-            <div className="hero-small-card">
-              <img src={heroCardImg} alt="Preview small" />
-            </div>
+          <div className="table-column">
+            <h3>Student Management System</h3>
+            <ul>
+              <li>Manages only student-related data.</li>
+              <li>Useful for students, parents & staff.</li>
+              <li>Standalone or part of bigger ERP.</li>
+            </ul>
           </div>
-
         </div>
       </section>
 
       {/* FEATURES */}
-      <section id="features" className="sf-section features">
-        <div className="container">
-          <h2>Everything your school needs</h2>
-          <p className="sub">
-            Manage academics efficiently with StudentFlow.
-          </p>
+      <section className="features">
+        <h2>SWEEDU Student Management Features</h2>
 
-          <div className="features-grid">
-            <div className="feature-card">
-              <FiUsers className="f-ico" />
-              <h3>Student Management</h3>
-              <p>Add, organize, and manage student data easily.</p>
-            </div>
+        <div className="feature-grid">
+          <div className="feature-card">
+            <img src={feature1} alt="Smart Class" />
+            <h4>Smart Class</h4>
+            <p>Conduct online classes with increased efficiency.</p>
+          </div>
 
-            <div className="feature-card">
-              <FiBarChart2 className="f-ico" />
-              <h3>Attendance</h3>
-              <p>Mark daily attendance & generate reports.</p>
-            </div>
+          <div className="feature-card">
+            <img src={feature2} alt="Video Tutorials" />
+            <h4>Video Tutorials</h4>
+            <p>Complete learning management system for students.</p>
+          </div>
 
-            <div className="feature-card">
-              <FiBookOpen className="f-ico" />
-              <h3>Grades</h3>
-              <p>Track academic performance instantly.</p>
-            </div>
+          <div className="feature-card">
+            <img src={feature3} alt="Online Exam" />
+            <h4>Online Exam</h4>
+            <p>Robust online examination system for students.</p>
+          </div>
 
-            <div className="feature-card">
-              <FiBell className="f-ico" />
-              <h3>Notices</h3>
-              <p>Announcements & exam alerts at a glance.</p>
-            </div>
+          <div className="feature-card">
+            <img src={feature4} alt="Attendance" />
+            <h4>Attendance</h4>
+            <p>Manage school attendance digitally and easily.</p>
+          </div>
+
+          <div className="feature-card">
+            <img src={feature5} alt="Homework Management" />
+            <h4>Homework Management</h4>
+            <p>View homework, progress reports and more.</p>
+          </div>
+
+          <div className="feature-card">
+            <img src={feature6} alt="Timetable" />
+            <h4>Timetable Management</h4>
+            <p>Create class-wise timetables for students.</p>
           </div>
         </div>
       </section>
 
-      {/* WORKFLOW */}
-      <section id="how" className="sf-section workflow">
-        <div className="container">
-          <h2 className="center-title">How StudentFlow Works</h2>
+      {/* BENEFITS */}
+      <section className="benefits">
+        <h2>Why Do You Need a Student Management System?</h2>
+        <p>
+          A student information system helps keep data organized and
+          easily retrievable. It benefits students, teachers, parents,
+          and administrators.
+        </p>
 
-          <div className="steps-grid">
-            {[1, 2, 3, 4].map((num) => (
-              <div className="step-card" key={num}>
+        <img src={benefitsImg} alt="Benefits" className="benefits-img" />
 
-                <div className="step-img">
-                  <img src={workflowImg} alt="workflow" />
-                </div>
+        <div className="benefit-grid">
+          <div className="benefit-card">
+            <h3>Benefits for Students</h3>
+            <ul>
+              <li>Profile management</li>
+              <li>View academic details</li>
+              <li>Access timetables & announcements</li>
+            </ul>
+          </div>
 
-                <div className="step-body">
-                  {num === 1 && <><h4>Create Your Account</h4><p>Start instantly.</p></>}
-                  {num === 2 && <><h4>Add Students</h4><p>Organize class data.</p></>}
-                  {num === 3 && <><h4>Track Attendance & Grades</h4><p>Easy teacher screens.</p></>}
-                  {num === 4 && <><h4>Generate Reports</h4><p>One-click summaries.</p></>}
-                </div>
+          <div className="benefit-card">
+            <h3>Benefits for Parents</h3>
+            <ul>
+              <li>Quick online admissions</li>
+              <li>Pay school fees online</li>
+              <li>Track child progress & attendance</li>
+            </ul>
+          </div>
 
-                <div className="step-no">{String(num).padStart(2, "0")}</div>
-              </div>
-            ))}
+          <div className="benefit-card">
+            <h3>Benefits for Teachers</h3>
+            <ul>
+              <li>Easy access to student info</li>
+              <li>Update attendance & marks</li>
+              <li>Real-time communication</li>
+            </ul>
+          </div>
+
+          <div className="benefit-card">
+            <h3>Benefits for Administrators</h3>
+            <ul>
+              <li>Centralized student database</li>
+              <li>Role-based access</li>
+              <li>Cloud-secured data backup</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* ROLES */}
-      <section id="roles" className="sf-section roles">
-        <div className="container">
-          <h2 className="center-title">Built for Every Role</h2>
-
-          <div className="roles-grid">
-            <div className="role-card">
-              <img src={workflowImg} alt="" />
-              <h4>Administrators</h4>
-              <ul>
-                <li>Full Data Control</li>
-                <li>Export Reports</li>
-                <li>Manage Staff</li>
-              </ul>
-            </div>
-
-            <div className="role-card">
-              <img src={workflowImg} alt="" />
-              <h4>Coordinators</h4>
-              <ul>
-                <li>Monitor Sections</li>
-                <li>Track Attendance</li>
-                <li>Manage Notices</li>
-              </ul>
-            </div>
-
-            <div className="role-card">
-              <img src={workflowImg} alt="" />
-              <h4>Teachers</h4>
-              <ul>
-                <li>Mark Attendance</li>
-                <li>Enter Grades</li>
-                <li>Review Performance</li>
-              </ul>
-            </div>
+      {/* BLOG */}
+      <section className="blog">
+        <h2>Related Blog</h2>
+        <div className="blog-grid">
+          <div className="blog-card">
+            <h4>Simplifying Success: User-Friendly Features of SWEEDU</h4>
+            <p>April 30, 2024</p>
           </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="sf-section testimonials">
-        <div className="container">
-          <h2 className="center-title">Loved By Schools</h2>
-
-          <div className="test-grid">
-            <div className="test-card">
-              <q>StudentFlow made data handling so smooth!</q>
-              <div className="author">— Mrs. Kavitha, Principal</div>
-            </div>
-
-            <div className="test-card">
-              <q>Reports and attendance are now effortless.</q>
-              <div className="author">— Mr. Ajay Kumar, Coordinator</div>
-            </div>
+          <div className="blog-card">
+            <h4>Essential Features for Coaching Management</h4>
+            <p>Nov 2, 2023</p>
+          </div>
+          <div className="blog-card">
+            <h4>Guide to Teach Digital Citizenship</h4>
+            <p>Sept 18, 2023</p>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="sf-section faq">
-        <div className="container">
-          <h2 className="center-title">FAQ</h2>
-
-          <div className="faq-grid">
-            <details>
-              <summary>Is StudentFlow free?</summary>
-              <p>Yes — the base version is fully free.</p>
-            </details>
-
-            <details>
-              <summary>Does it work offline?</summary>
-              <p>A complete offline-ready system.</p>
-            </details>
-
-            <details>
-              <summary>Is the data secure?</summary>
-              <p>All data remains in your browser.</p>
-            </details>
-
-            <details>
-              <summary>Do we need a backend?</summary>
-              <p>No. Everything runs on LocalStorage.</p>
-            </details>
-          </div>
+      <section className="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div className="faq-item">
+          <h3>What is a Student Management System?</h3>
+          <p>A digital tool to manage student data, academics, attendance, communication and much more.</p>
+        </div>
+        <div className="faq-item">
+          <h3>Is SWEEDU cloud-based?</h3>
+          <p>Yes, SWEEDU uses cloud servers with SSL encryption for security.</p>
+        </div>
+        <div className="faq-item">
+          <h3>Can parents track progress?</h3>
+          <p>Yes, parents can view marks, attendance and reports in real-time.</p>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="sf-footer">
-        <div className="container">
-          <p>© {new Date().getFullYear()} StudentFlow — Smart Management for Schools</p>
-        </div>
+      <footer className="footer">
+        <h3>Contact Us</h3>
+        <p>Email: sales@webmediaexperts.net</p>
+        <p>Phone: +91 8000 338 338</p>
+        <div className="footer-bottom">© {new Date().getFullYear()} SWEEDU - All Rights Reserved.</div>
       </footer>
-
     </div>
   );
 }
+// ...existing code...
