@@ -1,18 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
 
 const STORAGE_KEY = "studentflow_students";
 const StudentContext = createContext();
 
-// ---------- SAMPLE STUDENTS ----------
+// Sample students with consistent IDs
 const sampleStudents = [
   {
-    id: uuid(),
+    id: "sample-1",
     firstName: "Aarav",
     lastName: "Sharma",
     email: "aarav.sharma@example.com",
     phone: "9876543210",
-    grade: 10,
+    grade: "10",
     section: "A",
     rollNumber: "10A01",
     enrollmentDate: "2022-06-10",
@@ -24,12 +23,12 @@ const sampleStudents = [
     photoUrl: ""
   },
   {
-    id: uuid(),
+    id: "sample-2",
     firstName: "Saanvi",
     lastName: "Reddy",
     email: "saanvi.reddy@example.com",
     phone: "9876509876",
-    grade: 9,
+    grade: "9",
     section: "B",
     rollNumber: "9B07",
     enrollmentDate: "2021-06-05",
@@ -41,12 +40,12 @@ const sampleStudents = [
     photoUrl: ""
   },
   {
-    id: uuid(),
+    id: "sample-3",
     firstName: "Vihaan",
     lastName: "Kumar",
     email: "vihaan.kumar@example.com",
     phone: "9876523456",
-    grade: 8,
+    grade: "8",
     section: "A",
     rollNumber: "8A12",
     enrollmentDate: "2020-06-12",
@@ -58,7 +57,7 @@ const sampleStudents = [
     photoUrl: ""
   },
   {
-    id: uuid(),
+    id: "sample-4",
     firstName: "Anika",
     lastName: "Mehta",
     email: "anika.mehta@example.com",
@@ -75,7 +74,7 @@ const sampleStudents = [
     photoUrl: ""
   },
   {
-    id: uuid(),
+    id: "sample-5",
     firstName: "Ishaan",
     lastName: "Singh",
     email: "ishaan.singh@example.com",
@@ -93,11 +92,18 @@ const sampleStudents = [
   }
 ];
 
-// ---------- LOAD FROM STORAGE ----------
 const loadStudents = () => {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : sampleStudents;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Ensure grade is string for consistency
+      return parsed.map(s => ({
+        ...s,
+        grade: String(s.grade)
+      }));
+    }
+    return sampleStudents;
   } catch {
     return sampleStudents;
   }
@@ -110,43 +116,48 @@ export const StudentProvider = ({ children }) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
   }, [students]);
 
-  // Add student
   const addStudent = (data) => {
-    // Duplicate Roll Check
+    // Ensure grade is string
+    const normalizedData = {
+      ...data,
+      grade: String(data.grade)
+    };
+
+    // Check for duplicate roll number
     const exists = students.some(
       (s) =>
-        s.rollNumber.toLowerCase() === data.rollNumber.toLowerCase() &&
-        s.grade === data.grade &&
-        s.section === data.section
+        s.rollNumber.toLowerCase() === normalizedData.rollNumber.toLowerCase() &&
+        s.grade === normalizedData.grade &&
+        s.section === normalizedData.section
     );
 
-    if (exists) throw new Error("Roll number already exists in this class.");
+    if (exists) {
+      throw new Error("Roll number already exists in this class.");
+    }
 
-    const newStudent = { id: uuid(), ...data };
+    const newStudent = { 
+      id: uuid(), 
+      ...normalizedData 
+    };
+    
     setStudents((prev) => [...prev, newStudent]);
-
     return newStudent;
   };
 
-  // Update student
   const updateStudent = (id, updated) => {
     setStudents((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, ...updated } : s))
+      prev.map((s) => (s.id === id ? { ...s, ...updated, grade: String(updated.grade || s.grade) } : s))
     );
   };
 
-  // Delete student
   const deleteStudent = (id) => {
     setStudents((prev) => prev.filter((s) => s.id !== id));
   };
 
-  // Get by id
   const getStudentById = (id) => students.find((s) => s.id === id);
 
-  // Search
   const searchStudents = (query) => {
     if (!query.trim()) return students;
-
     query = query.toLowerCase();
 
     return students.filter((s) => {
@@ -159,6 +170,13 @@ export const StudentProvider = ({ children }) => {
     });
   };
 
+  // Get students by grade and section
+  const getStudentsByClass = (grade, section) => {
+    return students.filter(
+      (s) => s.grade === String(grade) && s.section === section
+    );
+  };
+
   return (
     <StudentContext.Provider
       value={{
@@ -167,7 +185,8 @@ export const StudentProvider = ({ children }) => {
         updateStudent,
         deleteStudent,
         getStudentById,
-        searchStudents
+        searchStudents,
+        getStudentsByClass
       }}
     >
       {children}

@@ -77,15 +77,20 @@ export default function LandingPage() {
       </section>
 
       {/* FEATURES */}
-      <section className="features">
-        <h2>SWEEDU Student Management Features</h2>
+      <section id="features" className="sf-section features">
+        <div className="container">
+          <h2>Everything your school needs</h2>
+          <p className="sub">
+            Manage academics efficiently with StudentFlow.
+          </p>
+          <p>Everything your school needs is now in one powerful platform. StudentFlow helps you manage academics efficiently with smart tools designed for schools of all sizes. From attendance and assessments to timetables and progress tracking, every task becomes easier and more organized. Teachers can work more productively, students stay informed, and administrators gain complete visibility over academic operations. With StudentFlow, your school experiences smoother workflows, reduced manual effort, and improved overall performance.</p>
 
-        <div className="feature-grid">
-          <div className="feature-card">
-            <img src={feature1} alt="Smart Class" />
-            <h4>Smart Class</h4>
-            <p>Conduct online classes with increased efficiency.</p>
-          </div>
+          <div className="features-grid">
+            <div className="feature-card">
+              <FiUsers className="f-ico" />
+              <h3>Student Management</h3>
+              <p>Add, organize, and manage student data easily.</p>
+            </div>
 
           <div className="feature-card">
             <img src={feature2} alt="Video Tutorials" />
@@ -104,41 +109,53 @@ export default function LandingPage() {
             <h4>Attendance</h4>
             <p>Manage school attendance digitally and easily.</p>
           </div>
+        </div>
+      </section>
 
-          <div className="feature-card">
-            <img src={feature5} alt="Homework Management" />
-            <h4>Homework Management</h4>
-            <p>View homework, progress reports and more.</p>
+      {/* WORKFLOW */}
+      <section id="how" className="sf-section workflow">
+        <div className="container">
+          <h2 className="center-title">How StudentFlow Works</h2>
+          <p>StudentFlow is designed to simplify student management from start to finish. First, you create your account and set up your basic details. Then, you can easily add students along with their profiles and academic information. Once everything is set up, StudentFlow allows you to track daily attendance, monitor grades, and maintain student records effortlessly. With all data stored in one place, you can instantly generate detailed reports for performance, attendance trends, and class insights. StudentFlow makes student management faster, smarter, and more organized.</p>
+          <div className="main-steps-grid">
+          <div className="steps-grid">
+            {[1, 2, 3, 4].map((num) => (
+              <div className="step-card" key={num}>
+
+                <div className="step-img">
+                  <img src={workflowImg} alt="workflow" />
+                </div>
+
+                <div className="step-body">
+                  {num === 1 && <><h4>Create Your Account</h4><p>Start instantly.</p></>}
+                  {num === 2 && <><h4>Add Students</h4><p>Organize class data.</p></>}
+                  {num === 3 && <><h4>Track Attendance & Grades</h4><p>Easy teacher screens.</p></>}
+                  {num === 4 && <><h4>Generate Reports</h4><p>One-click summaries.</p></>}
+                </div>
+
+                <div className="step-no">{String(num).padStart(2, "0")}</div>
+              </div>
+            ))}
           </div>
-
-          <div className="feature-card">
-            <img src={feature6} alt="Timetable" />
-            <h4>Timetable Management</h4>
-            <p>Create class-wise timetables for students.</p>
           </div>
         </div>
       </section>
 
-      {/* BENEFITS */}
-      <section className="benefits">
-        <h2>Why Do You Need a Student Management System?</h2>
-        <p>
-          A student information system helps keep data organized and
-          easily retrievable. It benefits students, teachers, parents,
-          and administrators.
-        </p>
-
-        <img src={benefitsImg} alt="Benefits" className="benefits-img" />
-
-        <div className="benefit-grid">
-          <div className="benefit-card">
-            <h3>Benefits for Students</h3>
-            <ul>
-              <li>Profile management</li>
-              <li>View academic details</li>
-              <li>Access timetables & announcements</li>
-            </ul>
-          </div>
+      {/* ROLES */}
+      <section id="roles" className="sf-section roles">
+        <div className="container">
+          <h2 className="center-title">Built for Every Role</h2>
+          <p>Built for Every Role, StudentFlow adapts to the needs of administrators, teachers, and coordinators alike. Whether you’re managing student records, tracking attendance, or analyzing performance, the platform provides the right tools for every user. Each role gets a streamlined experience designed to save time, improve accuracy, and keep everyone connected.</p>
+          <div className="roles-grid">
+            <div className="role-card">
+              <img src={workflowImg} alt="" />
+              <h4>Administrators</h4>
+              <ul>
+                <li>Full Data Control</li>
+                <li>Export Reports</li>
+                <li>Manage Staff</li>
+              </ul>
+            </div>
 
           <div className="benefit-card">
             <h3>Benefits for Parents</h3>
@@ -169,49 +186,69 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* BLOG */}
-      <section className="blog">
-        <h2>Related Blog</h2>
-        <div className="blog-grid">
-          <div className="blog-card">
-            <h4>Simplifying Success: User-Friendly Features of SWEEDU</h4>
-            <p>April 30, 2024</p>
-          </div>
-          <div className="blog-card">
-            <h4>Essential Features for Coaching Management</h4>
-            <p>Nov 2, 2023</p>
-          </div>
-          <div className="blog-card">
-            <h4>Guide to Teach Digital Citizenship</h4>
-            <p>Sept 18, 2023</p>
+      {/* TESTIMONIALS */}
+      <section className="sf-section testimonials">
+        <div className="container">
+          <h2 className="center-title">Loved By Schools</h2>
+          <p>Loved by schools of all sizes, StudentFlow has become a trusted solution for simplifying academic and administrative tasks. Schools appreciate how easy it is to manage students, track attendance, and access reports—all from one clean dashboard. With reliable performance, intuitive design, and time-saving automation, StudentFlow helps educators focus more on teaching and less on paperwork. That’s why schools choose it, use it, and truly love it.</p>
+          <div className="test-grid">
+            <div className="test-card">
+              <q>StudentFlow made data handling so smooth!</q>
+              <div className="author">— Mrs. Kavitha, Principal</div>
+            </div>
+
+            <div className="test-card">
+              <q>Reports and attendance are now effortless.</q>
+              <div className="author">— Mr. Ajay Kumar, Coordinator</div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="faq">
-        <h2>Frequently Asked Questions</h2>
-        <div className="faq-item">
-          <h3>What is a Student Management System?</h3>
-          <p>A digital tool to manage student data, academics, attendance, communication and much more.</p>
-        </div>
-        <div className="faq-item">
-          <h3>Is SWEEDU cloud-based?</h3>
-          <p>Yes, SWEEDU uses cloud servers with SSL encryption for security.</p>
-        </div>
-        <div className="faq-item">
-          <h3>Can parents track progress?</h3>
-          <p>Yes, parents can view marks, attendance and reports in real-time.</p>
+      <section id="faq" className="sf-section faq">
+        <div className="container">
+          <h2 className="center-title">FAQ</h2>
+          <div className="faq-grid">
+          <div className="faq-questions">
+            <details>
+              <summary>Is StudentFlow free?</summary>
+              <p>Yes — the base version is fully free.</p>
+            </details>
+
+            <details>
+              <summary>Does it work offline?</summary>
+              <p>A complete offline-ready system.</p>
+            </details>
+
+            <details>
+              <summary>Is the data secure?</summary>
+              <p>All data remains in your browser.</p>
+            </details>
+
+            <details>
+              <summary>Do we need a backend?</summary>
+              <p>No. Everything runs on LocalStorage.</p>
+            </details>
+             <details>
+              <summary>Is StudentFlow free?</summary>
+              <p>Yes — the base version is fully free.</p>
+            </details>
+             <details>
+              <summary>Is StudentFlow free?</summary>
+              <p>Yes — the base version is fully free.</p>
+            </details>
+          </div>
+          <div className="faq-grid">
+            <img src="https://e1.pxfuel.com/desktop-wallpaper/401/742/desktop-wallpaper-ielts-student-female-students.jpg" alt="FAQ" className="faq-img"/>
+            <img src="https://st2.depositphotos.com/3889193/6856/i/450/depositphotos_68564281-stock-photo-beautiful-student-girl-posing-with.jpg" alt="FAQ" className="faq-img"/>
+            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3R1ZGVudHxlbnwwfHwwfHx8MA%3D%3D" alt="FAQ" className="faq-img"/>
+            <img src="https://media.istockphoto.com/id/1419416580/photo/positive-confident-indian-or-arabian-male-student-of-university-in-stylish-casual-wear-with.jpg?s=612x612&w=0&k=20&c=SU0hixbCg6ChDJH9jPBwVgHDRt2vJR3OSJx0Bt5AWCE=" alt="FAQ" className="faq-img"/>
+          </div>
+          </div>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="footer">
-        <h3>Contact Us</h3>
-        <p>Email: sales@webmediaexperts.net</p>
-        <p>Phone: +91 8000 338 338</p>
-        <div className="footer-bottom">© {new Date().getFullYear()} SWEEDU - All Rights Reserved.</div>
-      </footer>
     </div>
   );
 }

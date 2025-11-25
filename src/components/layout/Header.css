@@ -1,63 +1,267 @@
-/* Header - StudentFlow themed (matches LandingPage gradient + glass) */
+/* ==========================================
+   HEADER - BOOTSTRAP NAVBAR
+   Colors match Landing Page Theme
+========================================== */
 
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  z-index: 2200;
-  background: linear-gradient(90deg, rgba(37,99,235,0.06), rgba(16,185,129,0.04));
-  backdrop-filter: blur(6px) saturate(120%);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  box-shadow: 0 6px 20px rgba(3,7,18,0.45);
+:root {
+  --header-height: 70px;
+  --primary: #2563eb;
+  --secondary: #10b981;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --gradient-bg: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(16, 185, 129, 0.03));
 }
 
-.header .logo {
+/* ========== NAVBAR ========== */
+.header-navbar {
+  height: var(--header-height);
+  background: white !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 1030;
+  padding: 0.75rem 1.5rem;
+}
+
+/* ========== SIDEBAR TOGGLE BUTTON (Mobile) ========== */
+.sidebar-toggle-btn {
+  color: var(--text-dark);
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.sidebar-toggle-btn:hover {
+  background: var(--gradient-bg);
+  color: var(--primary);
+  transform: scale(1.05);
+}
+
+.sidebar-toggle-btn:focus {
+  box-shadow: none;
+}
+
+/* ========== BRAND ========== */
+.navbar-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.625rem;
   font-weight: 800;
-  font-size: 18px;
-  color: transparent;
+  font-size: 1.375rem;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.02);
+}
+
+.brand-icon {
+  font-size: 1.75rem;
+}
+
+.brand-text {
   background: linear-gradient(90deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.header .title {
-  font-size: 16px;
-  color: rgba(230,238,252,0.9);
+/* ========== USER BADGE ========== */
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: var(--gradient-bg);
+  border-radius: 999px;
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.user-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  flex-shrink: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.user-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1;
+}
+
+.user-role {
+  font-size: 0.75rem;
+  color: var(--text-muted);
   font-weight: 600;
-  margin-left: 8px;
-  display: none;
+  line-height: 1;
 }
 
-.header-right { display:flex; align-items:center; gap:12px; }
-
-.username {
-  display:flex; align-items:center; gap:10px;
-  font-size:14px; color: rgba(230,238,252,0.95);
-  font-weight:600; padding:6px 10px; border-radius:999px;
-  background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.02);
+/* ========== LOGOUT BUTTON ========== */
+.btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
 }
 
-.avatar { width:36px; height:36px; border-radius:50%; background:linear-gradient(90deg,var(--primary),var(--secondary)); display:inline-flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:14px; box-shadow: 0 6px 18px rgba(37,99,235,0.14); }
+.btn-logout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
 
-.role-badge { font-size:12px; padding:4px 8px; border-radius:999px; background: rgba(255,255,255,0.03); color: rgba(230,238,252,0.9); border:1px solid rgba(255,255,255,0.03); margin-left:6px; font-weight:600; }
+.btn-logout:active {
+  transform: translateY(0);
+}
 
-.logout-btn { background: linear-gradient(90deg, #ef4444, #f97316); color: white; padding: 8px 12px; border-radius: 10px; border: none; cursor: pointer; font-weight:700; box-shadow: 0 8px 22px rgba(239,68,68,0.18); transition: transform 0.12s ease, box-shadow 0.12s ease; }
-.logout-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(239,68,68,0.22); }
+.btn-logout i {
+  font-size: 1.125rem;
+}
 
-.icon-btn { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:10px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); color: var(--text-light); }
+/* ========== RESPONSIVE BREAKPOINTS ========== */
 
-@media (max-width:900px) {
-  .header { padding:0 12px; height:60px; }
-  .header .title { display:none; }
-  .username .name-text { display:none; }
-  .avatar { width:32px; height:32px; font-size:13px; }
+/* Tablets */
+@media (max-width: 991px) {
+  .header-navbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.25rem;
+  }
+
+  .brand-icon {
+    font-size: 1.5rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .header-navbar {
+    height: 60px;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.125rem;
+  }
+
+  .brand-icon {
+    font-size: 1.375rem;
+  }
+
+  .user-badge {
+    display: none;
+  }
+
+  .btn-logout {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.813rem;
+  }
+
+  .btn-logout span {
+    display: none;
+  }
+
+  .btn-logout i {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .header-navbar {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .brand-icon {
+    font-size: 1.25rem;
+  }
+
+  .btn-logout {
+    padding: 0.5rem;
+    border-radius: 0.625rem;
+  }
+}
+
+/* ========== ACCESSIBILITY ========== */
+.sidebar-toggle-btn:focus-visible,
+.btn-logout:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-navbar {
+  animation: slideDown 0.3s ease;
+}
+
+/* ========== PRINT ========== */
+@media print {
+  .header-navbar {
+    display: none !important;
+  }
+}
+
+/* ========== DARK MODE (Optional) ========== */
+@media (prefers-color-scheme: dark) {
+  .header-navbar {
+    background: #1e293b !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .sidebar-toggle-btn {
+    color: #f1f5f9;
+  }
+
+  .user-name {
+    color: #f1f5f9;
+  }
+
+  .user-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
 }

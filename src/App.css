@@ -1,29 +1,116 @@
-/* App Layout */
+/* ==========================================
+   APP LAYOUT - BOOTSTRAP INTEGRATED
+========================================== */
+
+:root {
+  --header-height: 70px;
+  --sidebar-width: 260px;
+  --primary: #2563eb;
+  --secondary: #10b981;
+  --sidebar-bg: #ffffff;
+  --header-bg: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(16, 185, 129, 0.03));
+}
+
+/* App Container */
 .app-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: #f8fafc;
 }
 
+/* App Body */
 .app-body {
   display: flex;
   flex: 1;
+  position: relative;
 }
 
+/* Main Content Area */
 .main-content {
   flex: 1;
   padding: 24px;
   background-color: #f8fafc;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-height: calc(100vh - var(--header-height));
 }
 
+/* With Layout (Logged In) */
 .main-content.with-layout {
-  margin-left: 240px; /* Sidebar width */
-  margin-top: 60px;   /* Header height */
-  min-height: calc(100vh - 60px);
+  margin-left: var(--sidebar-width);
+  margin-top: var(--header-height);
+  padding-top: 24px; /* Extra padding to prevent content going behind navbar */
 }
 
+/* No Layout (Public Pages) */
 .main-content.no-layout {
   margin: 0;
   padding: 0;
+  margin-top: 0 !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .main-content.with-layout {
+    margin-left: 0;
+    padding-top: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content.with-layout {
+    padding: 16px;
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content.with-layout {
+    padding: 12px;
+    padding-top: 12px;
+  }
+}
+
+/* Fix Content Behind Navbar */
+.main-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Scrollbar Styling */
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Ensure proper spacing for all pages */
+.dashboard,
+.students-page,
+.attendance-page,
+.grades-page,
+.reports-page {
+  position: relative;
+  z-index: 1;
+}
+
+/* Prevent content overlap */
+.card,
+.stats-grid,
+.filters,
+.quick-actions {
+  position: relative;
+  z-index: 2;
 }
