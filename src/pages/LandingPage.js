@@ -250,6 +250,7 @@ export default function LandingPage() {
           <h2 className="center-title">FAQ'S</h2>
           <div className="faq-grid">
             <div className="faq-questions">
+
               <details>
                 <summary>Is StudentFlow free to use?</summary>
                 <p>Yes — the core system is completely free with no hidden charges.</p>
