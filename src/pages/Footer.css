@@ -1,3 +1,13 @@
 #footer{
     background-color: #80f3d1d2;
 }
+h6{
+ color: rgba(0, 0, 0, 0.918);
+ font-size: 20px;
+    font-weight: 600;
+}
+
+a{
+ color: rgba(0, 0, 0, 0.918);
+ font-size: 15px;
+}

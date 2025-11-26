@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+   background: rgba(85, 239, 226, 0.822);
   padding: 20px;
   position: relative;
   overflow: hidden;
@@ -20,7 +20,7 @@
   content: "";
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.432);
   animation: float 20s infinite ease-in-out;
 }
 

@@ -45,8 +45,7 @@
 }
 
 .sf-brand {
-   font-family: "Playwrite CU", cursive;
-  font-size: 24px;
+  font-size: 34px;
   font-weight: 800;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
   background-clip: text;

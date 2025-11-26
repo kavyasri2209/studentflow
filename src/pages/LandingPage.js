@@ -163,25 +163,25 @@ export default function LandingPage() {
           <h2 className="center-title">How StudentFlow Works</h2>
           <p>StudentFlow is designed to simplify student management from start to finish. First, you create your account and set up your basic details. Then, you can easily add students along with their profiles and academic information. Once everything is set up, StudentFlow allows you to track daily attendance, monitor grades, and maintain student records effortlessly. With all data stored in one place, you can instantly generate detailed reports for performance, attendance trends, and class insights. StudentFlow makes student management faster, smarter, and more organized.</p>
           <div className="main-steps-grid">
-          <div className="steps-grid">
-            {[1, 2, 3, 4].map((num) => (
-              <div className="step-card" key={num}>
+            <div className="steps-grid">
+              {[1, 2, 3, 4].map((num) => (
+                <div className="step-card" key={num}>
 
-                <div className="step-img">
-                  <img src={workflowImg} alt="workflow" />
+                  <div className="step-img">
+                    <img src={workflowImg} alt="workflow" />
+                  </div>
+
+                  <div className="step-body">
+                    {num === 1 && <><h4>Create Your Account</h4><p>Start instantly.</p></>}
+                    {num === 2 && <><h4>Add Students</h4><p>Organize class data.</p></>}
+                    {num === 3 && <><h4>Track Attendance & Grades</h4><p>Easy teacher screens.</p></>}
+                    {num === 4 && <><h4>Generate Reports</h4><p>One-click summaries.</p></>}
+                  </div>
+
+                  <div className="step-no">{String(num).padStart(2, "0")}</div>
                 </div>
-
-                <div className="step-body">
-                  {num === 1 && <><h4>Create Your Account</h4><p>Start instantly.</p></>}
-                  {num === 2 && <><h4>Add Students</h4><p>Organize class data.</p></>}
-                  {num === 3 && <><h4>Track Attendance & Grades</h4><p>Easy teacher screens.</p></>}
-                  {num === 4 && <><h4>Generate Reports</h4><p>One-click summaries.</p></>}
-                </div>
-
-                <div className="step-no">{String(num).padStart(2, "0")}</div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -233,12 +233,12 @@ export default function LandingPage() {
           <div className="test-grid">
             <div className="test-card">
               <q>StudentFlow made data handling so smooth!</q>
-              <div className="author">— Mrs. Kavitha, Principal</div>
+              <div className="author">— Mrs. Tejas, Principal</div>
             </div>
 
             <div className="test-card">
               <q>Reports and attendance are now effortless.</q>
-              <div className="author">— Mr. Ajay Kumar, Coordinator</div>
+              <div className="author">— Mr. Teja, Coordinator</div>
             </div>
           </div>
         </div>
@@ -247,43 +247,46 @@ export default function LandingPage() {
       {/* FAQ */}
       <section id="faq" className="sf-section faq">
         <div className="container">
-          <h2 className="center-title">FAQ</h2>
+          <h2 className="center-title">FAQ'S</h2>
           <div className="faq-grid">
-          <div className="faq-questions">
-            <details>
-              <summary>Is StudentFlow free?</summary>
-              <p>Yes — the base version is fully free.</p>
-            </details>
+            <div className="faq-questions">
+              <details>
+                <summary>Is StudentFlow free to use?</summary>
+                <p>Yes — the core system is completely free with no hidden charges.</p>
+              </details>
 
-            <details>
-              <summary>Does it work offline?</summary>
-              <p>A complete offline-ready system.</p>
-            </details>
+              <details>
+                <summary>Can StudentFlow work without an internet connection?</summary>
+                <p>Yes. StudentFlow is designed to work offline and automatically saves everything locally.</p>
+              </details>
 
-            <details>
-              <summary>Is the data secure?</summary>
-              <p>All data remains in your browser.</p>
-            </details>
+              <details>
+                <summary>How secure is my school data?</summary>
+                <p>Your data never leaves your device — it stays fully inside your browser for maximum privacy.</p>
+              </details>
 
-            <details>
-              <summary>Do we need a backend?</summary>
-              <p>No. Everything runs on LocalStorage.</p>
-            </details>
-             <details>
-              <summary>Is StudentFlow free?</summary>
-              <p>Yes — the base version is fully free.</p>
-            </details>
-             <details>
-              <summary>Is StudentFlow free?</summary>
-              <p>Yes — the base version is fully free.</p>
-            </details>
-          </div>
-          <div className="faq-grid">
-            <img src="https://e1.pxfuel.com/desktop-wallpaper/401/742/desktop-wallpaper-ielts-student-female-students.jpg" alt="FAQ" className="faq-img"/>
-            <img src="https://st2.depositphotos.com/3889193/6856/i/450/depositphotos_68564281-stock-photo-beautiful-student-girl-posing-with.jpg" alt="FAQ" className="faq-img"/>
-            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3R1ZGVudHxlbnwwfHwwfHx8MA%3D%3D" alt="FAQ" className="faq-img"/>
-            <img src="https://media.istockphoto.com/id/1419416580/photo/positive-confident-indian-or-arabian-male-student-of-university-in-stylish-casual-wear-with.jpg?s=612x612&w=0&k=20&c=SU0hixbCg6ChDJH9jPBwVgHDRt2vJR3OSJx0Bt5AWCE=" alt="FAQ" className="faq-img"/>
-          </div>
+              <details>
+                <summary>Does StudentFlow require any server or backend setup?</summary>
+                <p>No. StudentFlow runs entirely on LocalStorage, so no server or backend is needed.</p>
+              </details>
+
+              <details>
+                <summary>Can I back up or export my data?</summary>
+                <p>Yes — you can easily export your data at any time to keep your own backups.</p>
+              </details>
+
+              <details>
+                <summary>Does StudentFlow support multiple users or devices?</summary>
+                <p>Yes, but because data is stored locally, syncing across devices requires manual export/import.</p>
+              </details>
+
+            </div>
+            <div className="faq-grid">
+              <img src="https://e1.pxfuel.com/desktop-wallpaper/401/742/desktop-wallpaper-ielts-student-female-students.jpg" alt="FAQ" className="faq-img" />
+              <img src="https://st2.depositphotos.com/3889193/6856/i/450/depositphotos_68564281-stock-photo-beautiful-student-girl-posing-with.jpg" alt="FAQ" className="faq-img" />
+              <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3R1ZGVudHxlbnwwfHwwfHx8MA%3D%3D" alt="FAQ" className="faq-img" />
+              <img src="https://media.istockphoto.com/id/1419416580/photo/positive-confident-indian-or-arabian-male-student-of-university-in-stylish-casual-wear-with.jpg?s=612x612&w=0&k=20&c=SU0hixbCg6ChDJH9jPBwVgHDRt2vJR3OSJx0Bt5AWCE=" alt="FAQ" className="faq-img" />
+            </div>
           </div>
         </div>
       </section>
