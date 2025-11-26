@@ -1,14 +1,15 @@
 import React from 'react'
+import './Footer.css'
 
 function Footer() {
   return (
     <div>
-       <footer className="bg-dark text-light pt-5 pb-4 mt-5">
+       <footer className="text-light pt-5 pb-4 mt-5" id='footer'>
       <div className="container">
         <div className="row gy-4 align-items-start">
           
           {/* === Left Section: Logo + Description === */}
-          <div className="col-lg-4 col-md-6">
+          <div className="col-lg-4 col-md-3">
             <img
               src="your-logo.png"
               alt="Logo"
@@ -25,7 +26,7 @@ function Footer() {
           </div>
 
           {/* === Middle Left: eSkooly Links === */}
-          <div className="col-lg-2 col-md-6">
+          <div className="col-lg-2 col-md-3">
             <h6 className="text-uppercase fw-bold mb-3 text-info">eSkooly</h6>
             <ul className="list-unstyled small">
               <li className="mb-2">
@@ -44,7 +45,7 @@ function Footer() {
           </div>
 
           {/* === Middle Right: Terms === */}
-          <div className="col-lg-2 col-md-6">
+          <div className="col-lg-2 col-md-3">
             <h6 className="text-uppercase fw-bold mb-3 text-info">Terms</h6>
             <ul className="list-unstyled small">
               <li className="mb-2">
@@ -60,7 +61,7 @@ function Footer() {
           </div>
 
           {/* === Right Section: App Buttons + Socials === */}
-          <div className="col-lg-4 col-md-6">
+          <div className="col-lg-2 col-md-3">
             <h6 className="text-uppercase fw-bold mb-3 text-info">Download App</h6>
             <div className="d-flex flex-column flex-sm-row gap-3 mb-3">
               <a

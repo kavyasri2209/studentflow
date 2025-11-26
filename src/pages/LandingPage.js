@@ -9,6 +9,7 @@ import {
   FiBell,
 } from "react-icons/fi";
 import "./LandingPage.css";
+import Footer from "./Footer";
 import { useAuth } from "../context/AuthContext";
 
 // Replace with your actual images
@@ -286,7 +287,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
+      <Footer />
     </div>
   );
 }

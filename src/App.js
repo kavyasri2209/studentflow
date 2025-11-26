@@ -15,15 +15,13 @@ import StudentsPage from "./pages/StudentsPage";
 import AttendancePage from "./pages/AttendancePage";
 import GradesPage from "./pages/GradesPage";
 import ReportsPage from "./pages/ReportsPage";
-import Footer from "./pages/Footer";
 
 // COMPONENTS
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import Header from "./components/layout/Header";
 import Sidebar from "./components/layout/Sidebar";
-// import Footer from "./components/layout/Footer";
+import Footer from "./components/layout/Footer";
 import Toast from "./components/common/Toast";
-
 
 // STYLES
 import "./App.css";
@@ -58,7 +56,6 @@ function AppContent() {
       <Routes>
         {/* ========== PUBLIC ROUTES ========== */}
         <Route path="/" element={<LandingPage />} />
-        
         <Route path="/login" element={<LoginPage />} />
 
         {/* ========== PROTECTED ROUTES ========== */}
@@ -123,7 +120,6 @@ function AppContent() {
         {/* Catch all - redirect to dashboard if logged in, otherwise to landing */}
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
-      <Footer />
     </LayoutWrapper>
   );
 }
