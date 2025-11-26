@@ -14,7 +14,7 @@ function Header() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white fixed-top header-navbar">
+    <nav className="navbar navbar-expand-lg navbar-light  fixed-top header-navbar">
       <div className="container-fluid">
         
         {/* Sidebar Toggle Button (Mobile) */}

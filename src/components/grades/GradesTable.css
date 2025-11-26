@@ -27,10 +27,10 @@
 
 .grades-table th {
   padding: 14px 12px;
-  background: linear-gradient(90deg, rgba(37,99,235,0.06), rgba(16,185,129,0.04));
+  background: linear-gradient(90deg, rgb(30, 111, 233), rgba(35, 38, 39, 0.377));
   font-weight: 700;
   font-size: 13px;
-  color: rgba(230,238,252,0.95);
+  color: rgb(230, 238, 252);
   border-bottom: 1px solid rgba(255,255,255,0.03);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -39,7 +39,7 @@
 .grades-table td {
   padding: 14px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.03);
-  color: var(--muted);
+  color: rgba(0, 0, 0, 0.61);
   font-size: 14px;
   vertical-align: middle;
 }

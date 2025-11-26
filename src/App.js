@@ -126,7 +126,7 @@ function AppContent() {
 
 // MAIN APP
 function App() {
-  return (
+  return ( 
     <AuthProvider>
       <StudentProvider>
         <AttendanceProvider>

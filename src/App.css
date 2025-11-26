@@ -30,7 +30,7 @@
 .main-content {
   flex: 1;
   padding: 24px;
-  background-color: #f8fafc;
+  background-color:rgba(154, 241, 234, 0.267);
   overflow-y: auto;
   overflow-x: hidden;
   min-height: calc(100vh - var(--header-height));
