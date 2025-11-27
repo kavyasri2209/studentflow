@@ -31,7 +31,10 @@ function StudentsPage() {
       <div className="header-row">
         <h2>Students</h2>
 
-        <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+        <button className="btn btn-primary" onClick={() => {
+          setEditingStudent(null);
+          setShowModal(true);
+        }}>
           <FaPlus /> Add Student
         </button>
       </div>

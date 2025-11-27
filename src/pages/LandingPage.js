@@ -33,10 +33,10 @@ export default function LandingPage() {
           <div className="sf-brand">StudentFlow</div>
 
           <nav className={`sf-links ${open ? "open" : ""}`}>
-            <a href="#features">Features</a>
-            <a href="#how">How It Works</a>
-            <a href="#roles">Roles</a>
-            <a href="#faq">FAQ</a>
+            <a href="#features" onClick={() => setOpen(false)}>Features</a>
+            <a href="#how" onClick={() => setOpen(false)}>How It Works</a>
+            <a href="#roles" onClick={() => setOpen(false)}>Roles</a>
+            <a href="#faq" onClick={() => setOpen(false)}>FAQ</a>
           </nav>
 
           <div className="sf-actions">

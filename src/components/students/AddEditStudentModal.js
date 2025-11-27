@@ -29,9 +29,29 @@ function AddEditStudentModal({ onClose, editingStudent }) {
 
   const [errors, setErrors] = useState({});
 
-  // Fill data when editing
+  // Fill data when editing or reset when adding
   useEffect(() => {
-    if (isEdit) setForm(editingStudent);
+    if (isEdit && editingStudent) {
+      setForm(editingStudent);
+    } else {
+      // Reset form when adding new student
+      setForm({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        grade: "",
+        section: "",
+        rollNumber: "",
+        enrollmentDate: "",
+        dateOfBirth: "",
+        gender: "",
+        address: "",
+        parentName: "",
+        parentContact: "",
+        photoUrl: "",
+      });
+    }
   }, [editingStudent, isEdit]);
 
   const validate = () => {
@@ -153,12 +173,12 @@ function AddEditStudentModal({ onClose, editingStudent }) {
                 <select
                   className="input"
                   name="grade"
-                  value={form.grade}
+                  value={String(form.grade)}
                   onChange={handleChange}
                 >
                   <option value="">Select Grade</option>
                   {[...Array(12)].map((_, i) => (
-                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                    <option key={i + 1} value={String(i + 1)}>{i + 1}</option>
                   ))}
                 </select>
                 {errors.grade && <span className="error">{errors.grade}</span>}

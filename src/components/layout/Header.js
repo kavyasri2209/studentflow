@@ -1,15 +1,19 @@
 import React from "react";
 import "./Header.css";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   if (!user) return null;
 
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
       logout();
+      // Navigate to landing page after logout
+      navigate("/", { replace: true });
     }
   };
 

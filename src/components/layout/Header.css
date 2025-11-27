@@ -25,22 +25,37 @@
 
 /* ========== SIDEBAR TOGGLE BUTTON (Mobile) ========== */
 .sidebar-toggle-btn {
-  color: var(--text-dark);
-  padding: 0.5rem;
-  border: none;
-  background: transparent;
-  transition: all 0.3s ease;
-  border-radius: 0.5rem;
+  color: var(--text-dark) !important;
+  padding: 0.5rem !important;
+  border: none !important;
+  background: transparent !important;
+  transition: all 0.3s ease !important;
+  border-radius: 0.5rem !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  margin-right: 0.5rem !important;
 }
 
 .sidebar-toggle-btn:hover {
-  background: var(--gradient-bg);
-  color: var(--primary);
-  transform: scale(1.05);
+  background: var(--gradient-bg) !important;
+  color: var(--primary) !important;
+  transform: scale(1.05) !important;
 }
 
 .sidebar-toggle-btn:focus {
-  box-shadow: none;
+  box-shadow: none !important;
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+.sidebar-toggle-btn i,
+.sidebar-toggle-btn .bi {
+  font-size: 1.5rem !important;
+  display: block !important;
+  line-height: 1 !important;
 }
 
 /* ========== BRAND ========== */
@@ -147,6 +162,13 @@
 }
 
 /* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* Show hamburger only on small screens (below 992px) */
+@media (max-width: 991px) {
+  .sidebar-toggle-btn {
+    display: flex !important;
+  }
+}
 
 /* Tablets */
 @media (max-width: 991px) {
