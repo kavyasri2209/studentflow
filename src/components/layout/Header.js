@@ -40,14 +40,14 @@ function Header() {
           {/* User Badge */}
           <div className="user-badge d-none d-md-flex">
             <div className="user-avatar">
-              {user.username.charAt(0).toUpperCase()}
+              {user?.username?.charAt(0)?.toUpperCase() || "U"}
             </div>
             <div className="user-info">
-              <div className="user-name">{user.username}</div>
+              <div className="user-name">{user?.username || "User"}</div>
               <div className="user-role">
-                {user.role === "administrator" && "👑 Administrator"}
-                {user.role === "coordinator" && "📊 Coordinator"}
-                {user.role === "teacher" && "👨‍🏫 Teacher"}
+                {user?.role === "administrator" && "👑 Administrator"}
+                {user?.role === "coordinator" && "📊 Coordinator"}
+                {user?.role === "teacher" && "👨‍🏫 Teacher"}
               </div>
             </div>
           </div>

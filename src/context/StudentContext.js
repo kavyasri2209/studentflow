@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const STORAGE_KEY = "studentflow_students";
 const StudentContext = createContext();
@@ -97,7 +98,6 @@ const loadStudents = () => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
-      // Ensure grade is string for consistency
       return parsed.map(s => ({
         ...s,
         grade: String(s.grade)
@@ -117,13 +117,11 @@ export const StudentProvider = ({ children }) => {
   }, [students]);
 
   const addStudent = (data) => {
-    // Ensure grade is string
     const normalizedData = {
       ...data,
       grade: String(data.grade)
     };
 
-    // Check for duplicate roll number
     const exists = students.some(
       (s) =>
         s.rollNumber.toLowerCase() === normalizedData.rollNumber.toLowerCase() &&
@@ -170,7 +168,6 @@ export const StudentProvider = ({ children }) => {
     });
   };
 
-  // Get students by grade and section
   const getStudentsByClass = (grade, section) => {
     return students.filter(
       (s) => s.grade === String(grade) && s.section === section

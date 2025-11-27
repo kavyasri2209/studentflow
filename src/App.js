@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
-// CONTEXTS - Import all providers
+// CONTEXTS
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { StudentProvider } from "./context/StudentContext";
 import { AttendanceProvider } from "./context/AttendanceContext";
@@ -26,12 +26,22 @@ import Toast from "./components/common/Toast";
 // STYLES
 import "./App.css";
 
+// Loading Spinner Component
+function LoadingSpinner() {
+  return (
+    <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+      <div className="spinner-border text-primary" style={{ width: '3rem', height: '3rem' }} role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  );
+}
+
 // Layout Wrapper
 function LayoutWrapper({ children }) {
   const location = useLocation();
   const { user } = useAuth();
 
-  // Hide layout on public pages
   const hideLayout = location.pathname === "/" || location.pathname === "/login";
 
   return (
@@ -51,16 +61,18 @@ function LayoutWrapper({ children }) {
 
 // App Content with Routes
 function AppContent() {
+  const { loading } = useAuth();
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <LayoutWrapper>
       <Routes>
-        {/* ========== PUBLIC ROUTES ========== */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
 
-        {/* ========== PROTECTED ROUTES ========== */}
-        
-        {/* DASHBOARD - All roles can access */}
         <Route
           path="/dashboard"
           element={
@@ -70,7 +82,6 @@ function AppContent() {
           }
         />
 
-        {/* STUDENTS PAGE - Only Administrator (full CRUD) */}
         <Route
           path="/students"
           element={
@@ -80,10 +91,6 @@ function AppContent() {
           }
         />
 
-        {/* ATTENDANCE PAGE - Administrator, Coordinator, Teacher */}
-        {/* Administrator: Full access */}
-        {/* Coordinator: View and mark attendance */}
-        {/* Teacher: Mark attendance for their classes only */}
         <Route
           path="/attendance"
           element={
@@ -93,9 +100,6 @@ function AppContent() {
           }
         />
 
-        {/* GRADES PAGE - Administrator and Teacher */}
-        {/* Administrator: Full access to all grades */}
-        {/* Teacher: Add/Edit grades for their subjects */}
         <Route
           path="/grades"
           element={
@@ -105,9 +109,6 @@ function AppContent() {
           }
         />
 
-        {/* REPORTS PAGE - Administrator and Coordinator */}
-        {/* Administrator: Generate all reports */}
-        {/* Coordinator: View reports only */}
         <Route
           path="/reports"
           element={
@@ -117,7 +118,6 @@ function AppContent() {
           }
         />
 
-        {/* Catch all - redirect to dashboard if logged in, otherwise to landing */}
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </LayoutWrapper>
@@ -126,7 +126,7 @@ function AppContent() {
 
 // MAIN APP
 function App() {
-  return ( 
+  return (
     <AuthProvider>
       <StudentProvider>
         <AttendanceProvider>
