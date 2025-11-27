@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid"; // ✅ ADD THIS IMPORT
 
 const STORAGE_KEY = "studentflow_students";
 const StudentContext = createContext();
@@ -63,7 +63,7 @@ const sampleStudents = [
     lastName: "Mehta",
     email: "anika.mehta@example.com",
     phone: "9876534567",
-    grade: 7,
+    grade: "7",
     section: "C",
     rollNumber: "7C05",
     enrollmentDate: "2019-06-09",
@@ -80,7 +80,7 @@ const sampleStudents = [
     lastName: "Singh",
     email: "ishaan.singh@example.com",
     phone: "9876549900",
-    grade: 11,
+    grade: "11",
     section: "D",
     rollNumber: "11D03",
     enrollmentDate: "2023-06-14",
@@ -98,6 +98,7 @@ const loadStudents = () => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
+      // Ensure grade is string for consistency
       return parsed.map(s => ({
         ...s,
         grade: String(s.grade)
@@ -117,11 +118,13 @@ export const StudentProvider = ({ children }) => {
   }, [students]);
 
   const addStudent = (data) => {
+    // Ensure grade is string
     const normalizedData = {
       ...data,
       grade: String(data.grade)
     };
 
+    // Check for duplicate roll number
     const exists = students.some(
       (s) =>
         s.rollNumber.toLowerCase() === normalizedData.rollNumber.toLowerCase() &&
@@ -134,7 +137,7 @@ export const StudentProvider = ({ children }) => {
     }
 
     const newStudent = { 
-      id: uuid(), 
+      id: uuid(), // ✅ NOW THIS WILL WORK
       ...normalizedData 
     };
     
@@ -168,6 +171,7 @@ export const StudentProvider = ({ children }) => {
     });
   };
 
+  // Get students by grade and section
   const getStudentsByClass = (grade, section) => {
     return students.filter(
       (s) => s.grade === String(grade) && s.section === section

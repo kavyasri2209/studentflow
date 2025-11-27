@@ -1,11 +1,12 @@
 /* ==========================================
    STUDENTFLOW - ENHANCED GLOBAL STYLES
    Modern, Responsive, Production-Ready
+   ✅ FIXED: Consistent colors across all pages
 ========================================== */
 
-/* ------------ CSS VARIABLES ------------ */
+/* ------------ CSS VARIABLES (GLOBAL) ------------ */
 :root {
-  /* Colors */
+  /* Colors - CONSISTENT ACROSS ALL PAGES */
   --primary: #2563eb;
   --primary-dark: #1d4ed8;
   --secondary: #10b981;
@@ -15,16 +16,17 @@
   --warning: #f59e0b;
   --warning-dark: #d97706;
   
-  /* Text Colors */
+  /* Text Colors - FIXED */
   --text-dark: #1e293b;
-  --text-light: #e6eefc;
+  --text-light: #f1f5f9;
   --text-muted: #64748b;
   
-  /* Backgrounds */
+  /* Backgrounds - CONSISTENT */
   --bg-light: #f8fafc;
+  --bg-page: rgba(154, 241, 234, 0.267); /* ✅ Your preferred background */
   --bg-dark-1: #0f172a;
   --bg-dark-2: #0b1220;
-  --card-bg: rgba(255, 255, 255, 0.02);
+  --card-bg: #ffffff; /* ✅ FIXED: White cards everywhere */
   
   /* Glass Effects */
   --glass-light: rgba(255, 255, 255, 0.03);
@@ -84,23 +86,20 @@ html {
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
                "Helvetica Neue", Arial, sans-serif;
-  background: var(--bg-light);
+  background: var(--bg-page); /* ✅ FIXED: Same background everywhere */
   color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* Dark mode body (for pages using dark theme) */
-body.dark {
-  background: linear-gradient(170deg, var(--bg-dark-1), var(--bg-dark-2));
-  color: var(--text-light);
-}
+/* ✅ REMOVE dark mode on body - causes color issues */
 
 /* ------------ TYPOGRAPHY ------------ */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
+  color: var(--text-dark); /* ✅ FIXED: Always dark text */
 }
 
 h1 { font-size: clamp(2rem, 5vw, 3rem); }
@@ -112,6 +111,7 @@ h6 { font-size: 1rem; }
 
 p {
   margin-bottom: var(--spacing-md);
+  color: var(--text-dark); /* ✅ FIXED */
 }
 
 a {
@@ -136,7 +136,7 @@ a:hover {
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 
-.muted { color: var(--text-muted); }
+.muted { color: var(--text-muted) !important; } /* ✅ FIXED */
 .hidden { display: none !important; }
 .visible { display: block !important; }
 
@@ -152,22 +152,19 @@ a:hover {
 
 /* ------------ CARDS ------------ */
 .card {
-  background: #ffffff;
+  background: var(--card-bg); /* ✅ FIXED: Always white */
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   box-shadow: var(--shadow-sm);
   transition: var(--transition-base);
+  border: 1px solid rgba(0, 0, 0, 0.05); /* ✅ Subtle border */
 }
 
 .card:hover {
   box-shadow: var(--shadow-md);
 }
 
-.card.dark {
-  background: var(--card-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-lg);
-}
+/* ✅ REMOVED .card.dark - was causing issues */
 
 /* ------------ INPUTS ------------ */
 .input,
@@ -188,6 +185,7 @@ textarea {
   font-family: inherit;
   transition: var(--transition-fast);
   background: white;
+  color: var(--text-dark); /* ✅ FIXED */
 }
 
 .input:focus,
@@ -205,15 +203,7 @@ input:disabled {
   opacity: 0.6;
 }
 
-/* Dark theme inputs */
-.dark .input,
-.dark input,
-.dark select,
-.dark textarea {
-  background: var(--card-bg);
-  border-color: var(--glass-border);
-  color: var(--text-light);
-}
+/* ✅ REMOVED dark theme inputs */
 
 /* ------------ BUTTONS ------------ */
 .btn {
@@ -419,11 +409,13 @@ td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #e2e8f0;
+  color: var(--text-dark); /* ✅ FIXED */
 }
 
 th {
   font-weight: 600;
   background: #f8fafc;
+  color: var(--text-dark); /* ✅ FIXED */
 }
 
 tr:hover {
@@ -568,3 +560,5 @@ tr:hover {
     border: 1px solid #ddd;
   }
 }
+
+/* ✅ REMOVED all dark mode styles - they were causing color inconsistencies */

@@ -1,52 +1,236 @@
+/* ==========================================
+   STUDENT MODAL - FIXED Z-INDEX & VISIBILITY
+========================================== */
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.5); /* ✅ Darker backdrop for better visibility */
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5000;
+  z-index: 9999; /* ✅ VERY HIGH - Above everything */
+  padding: 20px;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease;
 }
 
 .modal {
-  width: 400px;
+  width: 100%;
+  max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
-  padding: 20px;
   background: white;
-  border-radius: 12px;
-  animation: pop 0.25s ease;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+  position: relative;
+  z-index: 10000; /* ✅ Even higher than backdrop */
+}
+
+/* ========== MODAL HEADER ========== */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px 24px;
+  border-bottom: 2px solid #f1f5f9;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #f1f5f9;
+  color: #ef4444;
+  transform: scale(1.1);
+}
+
+/* ========== MODAL BODY ========== */
+.modal-body {
+  padding: 24px;
+}
+
+.form-section {
+  margin-bottom: 32px;
+}
+
+.form-section h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e0e7ff;
 }
 
 .group {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 6px;
 }
 
 .row {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .error {
-  color: #ef4444;
+  display: block;
   font-size: 12px;
+  color: #ef4444;
+  margin-top: 4px;
+  font-weight: 600;
 }
 
+/* ========== FOOTER BUTTONS ========== */
 .footer-btns {
-  margin-top: 18px;
+  margin-top: 32px;
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 2px solid #f1f5f9;
+  position: sticky;
+  bottom: 0;
+  background: white;
+  z-index: 10;
 }
 
-@keyframes pop {
+.footer-btns .btn {
+  min-width: 120px;
+  padding: 12px 24px;
+  font-weight: 700;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.92);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .modal {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .modal-backdrop {
+    padding: 0;
+  }
+
+  .modal-header,
+  .modal-body {
+    padding: 20px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .footer-btns {
+    flex-direction: column;
+  }
+
+  .footer-btns .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header h3 {
+    font-size: 20px;
+  }
+
+  .close-btn {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .form-section h4 {
+    font-size: 15px;
+  }
+
+  .group label {
+    font-size: 13px;
+  }
+}
+
+/* ========== SCROLLBAR ========== */
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ========== ACCESSIBILITY ========== */
+.modal-backdrop:focus-visible,
+.close-btn:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
 }

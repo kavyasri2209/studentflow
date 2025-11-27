@@ -3,6 +3,16 @@ import "./Sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
+// ✅ FIXED IMPORTS - Correct icon names
+import {
+  FaHome,
+  FaUsers,
+  FaClipboardCheck,
+  FaChartLine,
+  FaFileAlt,
+  FaLock
+} from "react-icons/fa";
+
 function Sidebar() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -72,7 +82,7 @@ function SidebarContent({ role, onNavClick }) {
           }
           onClick={() => onNavClick("/dashboard")}
         >
-          <i className="bi bi-house-door"></i>
+          <FaHome size={20} />
           <span>Dashboard</span>
         </NavLink>
 
@@ -85,7 +95,7 @@ function SidebarContent({ role, onNavClick }) {
             }
             onClick={() => onNavClick("/students")}
           >
-            <i className="bi bi-people"></i>
+            <FaUsers size={20} />
             <span>Students</span>
           </NavLink>
         )}
@@ -93,7 +103,7 @@ function SidebarContent({ role, onNavClick }) {
         {/* Students - Locked */}
         {role !== "administrator" && (
           <div className="nav-link disabled">
-            <i className="bi bi-lock"></i>
+            <FaLock size={20} />
             <span>Students</span>
             <span className="badge bg-secondary ms-auto">Admin</span>
           </div>
@@ -108,7 +118,7 @@ function SidebarContent({ role, onNavClick }) {
             }
             onClick={() => onNavClick("/attendance")}
           >
-            <i className="bi bi-clipboard-check"></i>
+            <FaClipboardCheck size={20} />
             <span>Attendance</span>
           </NavLink>
         )}
@@ -122,7 +132,7 @@ function SidebarContent({ role, onNavClick }) {
             }
             onClick={() => onNavClick("/grades")}
           >
-            <i className="bi bi-graph-up"></i>
+            <FaChartLine size={20} />
             <span>Grades</span>
           </NavLink>
         )}
@@ -130,7 +140,7 @@ function SidebarContent({ role, onNavClick }) {
         {/* Grades - Locked */}
         {role === "coordinator" && (
           <div className="nav-link disabled">
-            <i className="bi bi-lock"></i>
+            <FaLock size={20} />
             <span>Grades</span>
             <span className="badge bg-secondary ms-auto">Teacher</span>
           </div>
@@ -145,7 +155,7 @@ function SidebarContent({ role, onNavClick }) {
             }
             onClick={() => onNavClick("/reports")}
           >
-            <i className="bi bi-file-earmark-text"></i>
+            <FaFileAlt size={20} />
             <span>Reports</span>
           </NavLink>
         )}
@@ -153,7 +163,7 @@ function SidebarContent({ role, onNavClick }) {
         {/* Reports - Locked */}
         {role === "teacher" && (
           <div className="nav-link disabled">
-            <i className="bi bi-lock"></i>
+            <FaLock size={20} />
             <span>Reports</span>
             <span className="badge bg-secondary ms-auto">Coordinator</span>
           </div>
