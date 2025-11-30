@@ -19,7 +19,7 @@
 
 /* GLOBAL */
 .sf-lp {
-  background: #92edd253;
+  background: #ffffff;
   color: var(--text-light);
   min-height: 100vh;
   width: 100%;
@@ -34,7 +34,7 @@
   padding: 18px 40px;
   z-index: 2000;
   backdrop-filter: blur(10px);
-  background: rgba(85, 239, 226, 0.432);
+  background: #2b72d6;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
@@ -56,6 +56,7 @@
 .sf-links {
   display: flex;
   gap: 28px;
+ 
 }
 
 .sf-links.open {
@@ -80,7 +81,7 @@
 }
 
 .sf-links a {
-  color: var(--text-light);
+  color: var(--glass-light);
   text-decoration: none;
   font-size: 15px;
   opacity: 0.85;
@@ -242,7 +243,7 @@
   height: 260px;
   background: var(--glass-light);
   border-radius: 18px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.04);
@@ -261,31 +262,36 @@
 }
 
 .hero-card-badge,
-.hero-card-notice {
+.hero-card-notice,
+.hero-card-events {
   position: absolute;
   padding: 8px 12px;
   font-size: 13px;
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.45);
   color: #fff;
+  z-index: 10;
 }
 
 .hero-card-badge {
   top: 12px;
-  left: 12px;
+  left: -62px;
 }
 
 .hero-card-notice {
-  bottom: 12px;
-  left: 12px;
+  bottom: 2px;
+  right: -52px;
 }
-
+.hero-card-events {
+  bottom: 12px;
+  left: -42px;
+}
 .hero-small-card {
   width: 100%;
   height: 160px;
   background: var(--glass-light);
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--glass-border);
 }
 .hero-small-card:hover {
@@ -436,8 +442,9 @@
 .role-card ul {
   margin-top: 10px;
   list-style-type: none;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   font-size: 15px;
+  text-align: center;
 }
 /* TESTIMONIALS */
 .test-grid {
@@ -555,4 +562,26 @@ details summary {
   .hero-card {
     height: 220px;
   }
+}
+@keyframes floatBadge {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.hero-card-badge,
+.hero-card-notice,
+.hero-card-events {
+  animation: floatBadge 3s ease-in-out infinite;
+}
+
+.hero-card-badge {
+  animation-delay: 0.3s;
+}
+
+.hero-card-notice {
+  animation-delay: 0.6s;
+}
+.hero-card-events{
+  animation-delay: 0.8s;
 }

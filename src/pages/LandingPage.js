@@ -110,10 +110,12 @@ export default function LandingPage() {
               <img src={heroImg} alt="Dashboard preview" />
               <div className="hero-card-badge">Attendance Overview</div>
               <div className="hero-card-notice">New Notice Published</div>
+              
             </div>
 
-            <div className="hero-small-card">
+            <div className="hero-small-card hero-card">
               <img src={heroCardImg} alt="Preview small" />
+              <div className="hero-card-events">Upcoming Events</div>
             </div>
           </div>
 
@@ -195,7 +197,7 @@ export default function LandingPage() {
             <div className="role-card">
               <img src={workflowImg} alt="" />
               <h4>Administrators</h4>
-              <ul>
+              <ul > 
                 <li>Full Data Control</li>
                 <li>Export Reports</li>
                 <li>Manage Staff</li>
