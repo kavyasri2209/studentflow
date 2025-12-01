@@ -13,7 +13,6 @@ function Footer() {
     <h6 className="text-uppercase fw-bold">StudentFlow</h6>
     <p className="small text-dark fs-6">
       StudentFlow is one of the world’s leading and highest-ranked free online school management software platforms.
-      Copyright © 2025 StudentFlow (SMC Private) Ltd. – All rights reserved.
     </p>
     <p className="small mb-0 text-dark">
       Copyright © 2025 eSkooly (SMC Private) Ltd. – All rights reserved.
@@ -22,7 +21,7 @@ function Footer() {
 
   {/* === Middle Left: eSkooly Links === */}
   <div className="col-12">
-    <h6 className="text-uppercase fw-bold mb-3">eSkooly</h6>
+    <h6 className="text-uppercase fw-bold mb-3">Quick Links</h6>
     <ul className="list-unstyled small">
       <li className="mb-2"><a href="#" className="text-decoration-none">Home</a></li>
       <li className="mb-2"><a href="#" className="text-decoration-none">Pricing</a></li>
@@ -33,7 +32,7 @@ function Footer() {
 
   {/* === Terms === */}
   <div className="col-12">
-    <h6 className="text-uppercase fw-bold mb-3">Terms</h6>
+    <h6 className="text-uppercase fw-bold mb-3">Resources</h6>
     <ul className="list-unstyled small">
       <li className="mb-2"><a href="#" className="text-decoration-none">Terms of Service</a></li>
       <li className="mb-2"><a href="#" className="text-decoration-none">Privacy Policy</a></li>

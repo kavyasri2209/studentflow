@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { FaWifi } from "react-icons/fa";
 
 // CONTEXTS
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -15,6 +16,7 @@ import StudentsPage from "./pages/StudentsPage";
 import AttendancePage from "./pages/AttendancePage";
 import GradesPage from "./pages/GradesPage";
 import ReportsPage from "./pages/ReportsPage";
+import NotFound from "./pages/NotFound";
 
 // COMPONENTS
 import ProtectedRoute from "./components/common/ProtectedRoute";
@@ -22,6 +24,9 @@ import Header from "./components/layout/Header";
 import Sidebar from "./components/layout/Sidebar";
 import Footer from "./components/layout/Footer";
 import Toast from "./components/common/Toast";
+
+// UTILS
+import { useNetworkStatus } from "./utils/useNetworkStatus";
 
 // STYLES
 import "./App.css";
@@ -118,7 +123,7 @@ function AppContent() {
           }
         />
 
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </LayoutWrapper>
   );
@@ -126,11 +131,18 @@ function AppContent() {
 
 // MAIN APP
 function App() {
+  const isOnline = useNetworkStatus();
+
   return (
     <AuthProvider>
       <StudentProvider>
         <AttendanceProvider>
           <GradeProvider>
+            {!isOnline && (
+              <div className="bg-danger text-white text-center py-2" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999 }}>
+                <FaWifi /> You are currently offline. Some features may not work.
+              </div>
+            )}
             <AppContent />
           </GradeProvider>
         </AttendanceProvider>

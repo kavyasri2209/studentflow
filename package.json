@@ -4,14 +4,11 @@
   "private": true,
   "description": "A full Student Management System built using React 18, Context API, LocalStorage, and modern UI.",
   "dependencies": {
-    "rea": "^0.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.22.0",
     "react-scripts": "^5.0.1",
-    "script": "^0.1.4",
-    "scripts": "^0.1.0",
     "uuid": "^9.0.1"
   },
   "scripts": {
