@@ -19,7 +19,17 @@ import workflowImg from "../Images/s3.jpg";
 
 export default function LandingPage() {
   const [open, setOpen] = React.useState(false);
+  const [openFaq, setOpenFaq] = React.useState(null);
   const { user } = useAuth();
+
+  const faqs = [
+    { q: "Is StudentFlow free to use?", a: "Yes — the core system is completely free with no hidden charges." },
+    { q: "Can StudentFlow work without an internet connection?", a: "Yes. StudentFlow is designed to work offline and automatically saves everything locally." },
+    { q: "How secure is my school data?", a: "Your data never leaves your device — it stays fully inside your browser for maximum privacy." },
+    { q: "Does StudentFlow require any server or backend setup?", a: "No. StudentFlow runs entirely on LocalStorage, so no server or backend is needed." },
+    { q: "Can I back up or export my data?", a: "Yes — you can easily export your data at any time to keep your own backups." },
+    { q: "Does StudentFlow support multiple users or devices?", a: "Yes, but because data is stored locally, syncing across devices requires manual export/import." }
+  ];
 
   // 🚀 If user is already logged in → skip landing page
   if (user) return <Navigate to="/dashboard" replace />;
@@ -30,13 +40,14 @@ export default function LandingPage() {
       {/* NAVBAR */}
       <header className="sf-nav">
         <div className="sf-nav-inner">
-          <div className="sf-brand">StudentFlow</div>
+          <a href="#home" className="sf-brand">StudentFlow</a>
 
           <nav className={`sf-links ${open ? "open" : ""}`}>
+            <a href="#home" onClick={() => setOpen(false)}>Home</a>
             <a href="#features" onClick={() => setOpen(false)}>Features</a>
             <a href="#how" onClick={() => setOpen(false)}>How It Works</a>
             <a href="#roles" onClick={() => setOpen(false)}>Roles</a>
-            <a href="#faq" onClick={() => setOpen(false)}>FAQ</a>
+            <a href="#faq" onClick={() => setOpen(false)}>FAQ's</a>
           </nav>
 
           <div className="sf-actions">
@@ -57,7 +68,7 @@ export default function LandingPage() {
       </header>
 
       {/* HERO SECTION */}
-      <section className="sf-hero">
+      <section id="home" className="sf-hero">
         <div className="sf-hero-inner">
 
           <div className="hero-left">
@@ -110,7 +121,7 @@ export default function LandingPage() {
               <img src={heroImg} alt="Dashboard preview" />
               <div className="hero-card-badge">Attendance Overview</div>
               <div className="hero-card-notice">New Notice Published</div>
-              
+
             </div>
 
             <div className="hero-small-card hero-card">
@@ -197,7 +208,7 @@ export default function LandingPage() {
             <div className="role-card">
               <img src={workflowImg} alt="" />
               <h4>Administrators</h4>
-              <ul > 
+              <ul >
                 <li>Full Data Control</li>
                 <li>Export Reports</li>
                 <li>Manage Staff</li>
@@ -252,37 +263,19 @@ export default function LandingPage() {
           <h2 className="center-title">FAQ'S</h2>
           <div className="faq-grid">
             <div className="faq-questions">
-
-              <details>
-                <summary>Is StudentFlow free to use?</summary>
-                <p>Yes — the core system is completely free with no hidden charges.</p>
-              </details>
-
-              <details>
-                <summary>Can StudentFlow work without an internet connection?</summary>
-                <p>Yes. StudentFlow is designed to work offline and automatically saves everything locally.</p>
-              </details>
-
-              <details>
-                <summary>How secure is my school data?</summary>
-                <p>Your data never leaves your device — it stays fully inside your browser for maximum privacy.</p>
-              </details>
-
-              <details>
-                <summary>Does StudentFlow require any server or backend setup?</summary>
-                <p>No. StudentFlow runs entirely on LocalStorage, so no server or backend is needed.</p>
-              </details>
-
-              <details>
-                <summary>Can I back up or export my data?</summary>
-                <p>Yes — you can easily export your data at any time to keep your own backups.</p>
-              </details>
-
-              <details>
-                <summary>Does StudentFlow support multiple users or devices?</summary>
-                <p>Yes, but because data is stored locally, syncing across devices requires manual export/import.</p>
-              </details>
-
+              {faqs.map((faq, index) => (
+                <details key={index} open={openFaq === index}>
+                  <summary
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenFaq(openFaq === index ? null : index);
+                    }}
+                  >
+                    {faq.q}
+                  </summary>
+                  <p>{faq.a}</p>
+                </details>
+              ))}
             </div>
             <div className="faq-grid">
               <img src="https://e1.pxfuel.com/desktop-wallpaper/401/742/desktop-wallpaper-ielts-student-female-students.jpg" alt="FAQ" className="faq-img" />

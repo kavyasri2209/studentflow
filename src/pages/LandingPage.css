@@ -51,12 +51,13 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+  text-decoration: none;
 }
 
 .sf-links {
   display: flex;
   gap: 28px;
- 
+
 }
 
 .sf-links.open {
@@ -83,7 +84,8 @@
 .sf-links a {
   color: black;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 17px;
+  font-weight: 600;
   opacity: 0.85;
   transition: all 0.2s ease;
 }
@@ -282,10 +284,12 @@
   bottom: 2px;
   right: -52px;
 }
+
 .hero-card-events {
   bottom: 12px;
   left: -42px;
 }
+
 .hero-small-card {
   width: 100%;
   height: 160px;
@@ -294,6 +298,7 @@
   overflow: visible;
   border: 1px solid var(--glass-border);
 }
+
 .hero-small-card:hover {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   transform: translateY(-6px);
@@ -359,14 +364,16 @@
 .workflow .center-title {
   text-align: center;
 }
+
 .main-steps-grid {
   margin-top: 30px;
- padding: 30px;
- background: linear-gradient(rgb(82, 223, 190),rgba(255, 255, 255, 0.742));
- border-radius: 20px;
+  padding: 30px;
+  background: linear-gradient(rgb(82, 223, 190), rgba(255, 255, 255, 0.742));
+  border-radius: 20px;
 }
+
 .steps-grid {
- 
+
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
@@ -446,6 +453,7 @@
   font-size: 15px;
   text-align: center;
 }
+
 /* TESTIMONIALS */
 .test-grid {
   margin-top: 30px;
@@ -494,18 +502,21 @@ details {
   object-fit: cover;
   height: 200px;
 }
+
 .faq-img:hover {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   transform: translateY(-6px);
   transition: all 0.3s ease;
 }
+
 .faq-questions {
   margin-top: 25px;
 }
 
-details{
+details {
   margin-bottom: 20px;
 }
+
 details summary {
   font-weight: 600;
   font-size: 15px;
@@ -563,10 +574,19 @@ details summary {
     height: 220px;
   }
 }
+
 @keyframes floatBadge {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .hero-card-badge,
@@ -582,6 +602,12 @@ details summary {
 .hero-card-notice {
   animation-delay: 0.6s;
 }
-.hero-card-events{
+
+.hero-card-events {
   animation-delay: 0.8s;
+}
+/* SCROLL OFFSET FIX */
+.sf-hero,
+.sf-section {
+  scroll-margin-top: 50px;
 }
