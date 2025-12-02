@@ -1,13 +1,41 @@
-#footer{
-    background-color: #80f3d1d2;
-}
-h6{
- color: rgba(0, 0, 0, 0.918);
- font-size: 20px;
-    font-weight: 600;
+#footer {
+  background-color: #55efe26e;
 }
 
-a{
- color: rgba(0, 0, 0, 0.918);
- font-size: 15px;
+#footer h6 {
+  color: rgba(0, 0, 0, 0.918);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#footer a {
+  color: rgba(0, 0, 0, 0.918);
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+#footer a:hover {
+  color: #2563eb;
+}
+
+#footer .social-icon {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.918);
+  transition: all 0.3s ease;
+}
+
+#footer .social-icon:hover {
+  color: #2563eb;
+  transform: translateY(-3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #footer .row {
+    text-align: center;
+  }
+  
+  #footer .d-flex {
+    justify-content: center !important;
+  }
 }

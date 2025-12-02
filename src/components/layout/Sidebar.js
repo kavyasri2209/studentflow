@@ -3,14 +3,12 @@ import "./Sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-// ✅ FIXED IMPORTS - Correct icon names
 import {
   FaHome,
   FaUsers,
   FaClipboardCheck,
   FaChartLine,
-  FaFileAlt,
-  FaLock
+  FaFileAlt
 } from "react-icons/fa";
 
 function Sidebar() {
@@ -21,17 +19,9 @@ function Sidebar() {
 
   const role = user.role;
 
-  // Close offcanvas after navigation (mobile)
+  // UPDATED: Force page reload on navigation
   const handleNavClick = (path) => {
-    navigate(path);
-    // Close Bootstrap offcanvas
-    const offcanvasElement = document.getElementById("sidebarOffcanvas");
-    if (offcanvasElement) {
-      const bsOffcanvas = window.bootstrap?.Offcanvas?.getInstance(offcanvasElement);
-      if (bsOffcanvas) {
-        bsOffcanvas.hide();
-      }
-    }
+    window.location.href = path;
   };
 
   return (
@@ -68,7 +58,7 @@ function Sidebar() {
   );
 }
 
-// Sidebar Content Component
+// UPDATED: Hide locked components completely based on role
 function SidebarContent({ role, onNavClick }) {
   return (
     <nav className="sidebar-nav">
@@ -80,33 +70,30 @@ function SidebarContent({ role, onNavClick }) {
           className={({ isActive }) =>
             `nav-link ${isActive ? "active" : ""}`
           }
-          onClick={() => onNavClick("/dashboard")}
+          onClick={(e) => {
+            e.preventDefault();
+            onNavClick("/dashboard");
+          }}
         >
           <FaHome size={20} />
           <span>Dashboard</span>
         </NavLink>
 
-        {/* Students - ADMINISTRATOR ONLY */}
+        {/* Students - ADMINISTRATOR ONLY - No locked state */}
         {role === "administrator" && (
           <NavLink
             to="/students"
             className={({ isActive }) =>
               `nav-link ${isActive ? "active" : ""}`
             }
-            onClick={() => onNavClick("/students")}
+            onClick={(e) => {
+              e.preventDefault();
+              onNavClick("/students");
+            }}
           >
             <FaUsers size={20} />
             <span>Students</span>
           </NavLink>
-        )}
-
-        {/* Students - Locked */}
-        {role !== "administrator" && (
-          <div className="nav-link disabled">
-            <FaLock size={20} />
-            <span>Students</span>
-            <span className="badge bg-secondary ms-auto">Admin</span>
-          </div>
         )}
 
         {/* Attendance - Admin, Coordinator, Teacher */}
@@ -116,57 +103,48 @@ function SidebarContent({ role, onNavClick }) {
             className={({ isActive }) =>
               `nav-link ${isActive ? "active" : ""}`
             }
-            onClick={() => onNavClick("/attendance")}
+            onClick={(e) => {
+              e.preventDefault();
+              onNavClick("/attendance");
+            }}
           >
             <FaClipboardCheck size={20} />
             <span>Attendance</span>
           </NavLink>
         )}
 
-        {/* Grades - Admin and Teacher */}
+        {/* Grades - Admin and Teacher - No locked state */}
         {["administrator", "teacher"].includes(role) && (
           <NavLink
             to="/grades"
             className={({ isActive }) =>
               `nav-link ${isActive ? "active" : ""}`
             }
-            onClick={() => onNavClick("/grades")}
+            onClick={(e) => {
+              e.preventDefault();
+              onNavClick("/grades");
+            }}
           >
             <FaChartLine size={20} />
             <span>Grades</span>
           </NavLink>
         )}
 
-        {/* Grades - Locked */}
-        {role === "coordinator" && (
-          <div className="nav-link disabled">
-            <FaLock size={20} />
-            <span>Grades</span>
-            <span className="badge bg-secondary ms-auto">Teacher</span>
-          </div>
-        )}
-
-        {/* Reports - Admin and Coordinator */}
+        {/* Reports - Admin and Coordinator - No locked state */}
         {["administrator", "coordinator"].includes(role) && (
           <NavLink
             to="/reports"
             className={({ isActive }) =>
               `nav-link ${isActive ? "active" : ""}`
             }
-            onClick={() => onNavClick("/reports")}
+            onClick={(e) => {
+              e.preventDefault();
+              onNavClick("/reports");
+            }}
           >
             <FaFileAlt size={20} />
             <span>Reports</span>
           </NavLink>
-        )}
-
-        {/* Reports - Locked */}
-        {role === "teacher" && (
-          <div className="nav-link disabled">
-            <FaLock size={20} />
-            <span>Reports</span>
-            <span className="badge bg-secondary ms-auto">Coordinator</span>
-          </div>
         )}
       </div>
 

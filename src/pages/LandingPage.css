@@ -611,3 +611,6 @@ details summary {
 .sf-section {
   scroll-margin-top: 50px;
 }
+html {
+  scroll-padding-top: 30px;
+}

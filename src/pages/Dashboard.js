@@ -14,8 +14,7 @@ import {
   FaChartLine,
   FaUserCheck,
   FaPlusCircle,
-  FaFile,
-  FaLock
+  FaFile
 } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
@@ -187,7 +186,7 @@ function Dashboard() {
 
       </div>
 
-      {/* ========== QUICK ACTIONS ========== */}
+      {/* ========== QUICK ACTIONS - UPDATED: No locked buttons ========== */}
       <h3 className="section-title">Quick Actions</h3>
 
       <div className="quick-actions">
@@ -210,7 +209,7 @@ function Dashboard() {
           </>
         )}
 
-        {/* COORDINATOR - Attendance & Reports */}
+        {/* COORDINATOR - Attendance & Reports Only */}
         {role === "coordinator" && (
           <>
             <Link to="/attendance" className="quick-btn btn-green">
@@ -219,16 +218,10 @@ function Dashboard() {
             <Link to="/reports" className="quick-btn btn-purple">
               <FaFile /> Generate Reports
             </Link>
-            <div className="quick-btn btn-disabled">
-              <FaLock /> Students (Admin Only)
-            </div>
-            <div className="quick-btn btn-disabled">
-              <FaLock /> Grades (Teachers Only)
-            </div>
           </>
         )}
 
-        {/* TEACHER - Attendance & Grades */}
+        {/* TEACHER - Attendance & Grades Only */}
         {role === "teacher" && (
           <>
             <Link to="/attendance" className="quick-btn btn-green">
@@ -237,12 +230,6 @@ function Dashboard() {
             <Link to="/grades" className="quick-btn btn-orange">
               <FaChartLine /> Enter Grades
             </Link>
-            <div className="quick-btn btn-disabled">
-              <FaLock /> Students (Admin Only)
-            </div>
-            <div className="quick-btn btn-disabled">
-              <FaLock /> Reports (Coordinator Access)
-            </div>
           </>
         )}
 
@@ -278,12 +265,9 @@ function Dashboard() {
             <div className="info-card">
               <h4>What You Can Do</h4>
               <ul>
-                <li>✅ View All Students (Read-Only)</li>
                 <li>✅ Monitor Attendance Records</li>
                 <li>✅ Generate Reports</li>
                 <li>✅ Export Attendance Data</li>
-                <li>❌ Cannot Add/Edit Students</li>
-                <li>❌ Cannot Manage Grades</li>
               </ul>
             </div>
           </div>
@@ -298,12 +282,9 @@ function Dashboard() {
             <div className="info-card">
               <h4>What You Can Do</h4>
               <ul>
-                <li>✅ View Students (Read-Only)</li>
                 <li>✅ Mark Daily Attendance</li>
                 <li>✅ Enter & Edit Grades</li>
                 <li>✅ View Grade Analytics</li>
-                <li>❌ Cannot Add/Delete Students</li>
-                <li>❌ Cannot Generate Reports</li>
               </ul>
             </div>
           </div>
